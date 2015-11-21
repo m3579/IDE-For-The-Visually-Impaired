@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>IDE For The Visually Impaired</title>
+		
+		<link rel="stylesheet" href="style.css">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		
+		<script src="speak-js-master/speakWorker.js"></script>
+		<script src="speak-js-master/speakGenerator.js"></script>
+		<script src="speak-js-master/speakClient.js"></script>
+		
+		<script src="parser.js"></script>
+		<script src="dummyparser.js"></script>
+		<script src="editor.js"></script>
+	</head>
+	
+	<body>
+		
+		<div id="audio"></div>
+		
+		<div id="filesystem" class="component">
+			
+			<h3>File System</h3>
+			
+			<ol id="files">
+				<li><a href="file.txt">file.txt</a></li>
+			</ol>
+		</div>
+		
+		<div id="text-editor">
+			<textarea id="editor"></textarea>
+		</div>
+		
+		<div id="console-window">
+			<textarea id="console"></textarea>
+		</div>
+		
+	</body>
+</html>
