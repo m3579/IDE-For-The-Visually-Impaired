@@ -1,0 +1,60 @@
+body {
+	background-color: #000000;
+	
+	padding-top: 50px;
+	padding-left: 100px;
+	
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#filesystem {
+	float: left;
+	
+	width: 200px;
+	
+	height: 450px;
+}
+
+#filesystem h3 {
+	margin-left: 25px;
+}
+
+#files {
+	list-style-type: none;
+}
+
+#files a:link {
+	color: #c0c0c0;
+	
+	text-decoration: none;
+}
+
+#editor {
+	margin-right: 100px;
+	
+	width: 850px;
+	height: 350px;
+	
+	float: right;
+}
+
+#console {
+	background-color: #ffffff;
+	
+	color: #000000;
+	
+	font-family: "Courier New", Courier, monospace;
+	
+	width: 850px;
+	height: 85px;
+	
+	float: right;
+	
+	margin-right: 100px;
+	margin-top: 25px;
+}
+
+.component {
+	background-color: #808080;
+	padding: 10px;
+}
