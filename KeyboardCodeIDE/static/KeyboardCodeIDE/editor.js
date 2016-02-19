@@ -43,20 +43,39 @@ function initEditor(symbol_map)
 	
 	// TODO: change this so that it fires whenever any key is pressed,
 	// to handle a wider range of events
+	// TODO: (HIGH PRIORITY) register copies, cuts, and pastes
 	// When something changes inside of the editor
 	$("#editor").on("input", function (event) {
         var currentText = $("#editor").val();
 		
-		// Something was deleted - there is less text now than before
-        if (currentText.length < previousText.length) {
+		// A single character was deleted - there is one less character than before
+        if (currentText.length == previousText.length - 1) {
             meSpeak.stop(speechActionID);
-			speechActionID = meSpeak.speak(findDifferentCharacter(previousText, currentText));
-        }
+			var charToSpeak = findDifferentCharacter(previousText, currentText);
+			if (charToSpeak in symbol_map) {
+				speechActionID = meSpeak.speak(symbol_map[charToSpeak]);
+			}
+			else {
+				speechActionID = meSpeak.speak(findDifferentCharacter(previousText, currentText));
+        	}
+		}
+		// Multiple characters were deleted - there is less text than before
+		else if (currentText.length < previousText.length) {
+			meSpeak.stop(speechActionID);
+			meSpeak.speak("delete");
+		}
 		// Something was added - there is more text now than before
         else if (currentText.length > previousText.length) {
 			meSpeak.stop(speechActionID);
-            speechActionID = meSpeak.speak(findDifferentCharacter(previousText, currentText));
-        }
+            
+			var charToSpeak = findDifferentCharacter(previousText, currentText);
+			if (charToSpeak in symbol_map) {
+				speechActionID = meSpeak.speak(symbol_map[charToSpeak]);
+			}
+			else {
+				speechActionID = meSpeak.speak(findDifferentCharacter(previousText, currentText));
+        	}
+		}
 		// Nothing we care about happened (the event fired for some other reason)
 		else {
             return;

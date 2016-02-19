@@ -25,7 +25,7 @@ def symbolmap(request):
             "'": "single quote",
             "<": "less than",
             ">": "greater than",
-            ",": "comma",
+            ",": "com ma",  # Tt is "com ma" because meSpeak.js just says "com" for "comma"
             ".": "period",   # TODO: maybe change this to "dot" based on language?
             "?": "question mark",
             "`": "backtick"
