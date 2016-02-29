@@ -1,3 +1,41 @@
+/*
+
+Here is a list of the keyboard shortcuts in KeyboardCode. You can access these shortcuts
+by pressing the control key once (not holding it); you will be taken to a text box on the bottom of
+the screen where you will type the command. When you hit enter, the command will be executed and you
+will be taken back to the source code.
+
+// TODO: instead of going to a different text box, make it work like Vim
+
+line <number>		Go to line					Will go to the specified line number
+v					Recall variable name		Will speak the names of the defined variables in the current scope
+s					Speak line					Speak the text of the current line from the beginning
+runth <number> <number>
+					Run through					Go through the the lines of code from the first numberth line to the second
+												numberth line and speak the first words
+m <string>			Marker						Make a marker with the given name
+g <string>			Go to marker				Go to the marker with the given name
+pre	<construct>		Previous					Go to the most recent previous occurence of the construct
+												(which will vary from language to language, but will usually be
+												things like "if", "for", etc.)
+nex <construct>		Next						Go to the next occurence of the construct
+
+speed <number>		Set speech speed			Set the speaker's speed in words per minute
+// TODO: add more ways to customize speech
+
+
+There is a special command that reads the text in the action menu after the Ctrl key is pressed:
+
+Caps Lock-,				Read action menu command	Reads the text entered in the action menu
+
+Then there are these:
+
+Escape				Exit the action manu		Exit the action menu and go back to the code
+
+Caps Lock-n			Create new file				Create a new file in the file system
+
+ */
+
 $(document).ready(
  	// Get information about the languages's syntax
 	// For now, there is only one option for the language
@@ -37,54 +75,119 @@ function initEditor(symbol_map)
 	// or say "delete" if a character was deleted
 	
 	// The text before the new character was typed
-	var previousText = $("#editor").val();
+	var editorPreviousText = $("#editor").val();
+	
+	var actionPreviousText = $("#action-menu").val();
 	
 	var speechActionID;
 	
+	var controlKeyWasPressed = false;
+	
+	var command = "";
+	
+	// The text editor
+	// TODO: find faster speech library
 	// TODO: change this so that it fires whenever any key is pressed,
 	// to handle a wider range of events
 	// TODO: (HIGH PRIORITY) register copies, cuts, and pastes
 	// When something changes inside of the editor
-	$("#editor").on("input", function (event) {
-        var currentText = $("#editor").val();
+	document.getElementById("editor").addEventListener("keyup", function (event) {
+ 
+		// Control was pressed
+		if (event.keyCode == 17) {
+			$("#action-menu").focus();
+			speechActionID = meSpeak.speak("Control");
+			
+			return;
+		}
 		
+		var currentText = $("#editor").val();
+
 		// A single character was deleted - there is one less character than before
-        if (currentText.length == previousText.length - 1) {
-            meSpeak.stop(speechActionID);
-			var charToSpeak = findDifferentCharacter(previousText, currentText);
+		if (currentText.length == editorPreviousText.length - 1) {
+			meSpeak.stop(speechActionID);
+			var charToSpeak = findDifferentCharacter(editorPreviousText, currentText);
 			if (charToSpeak in symbol_map) {
 				speechActionID = meSpeak.speak(symbol_map[charToSpeak]);
 			}
 			else {
-				speechActionID = meSpeak.speak(findDifferentCharacter(previousText, currentText));
-        	}
+				speechActionID = meSpeak.speak(findDifferentCharacter(editorPreviousText, currentText));
+			}
 		}
 		// Multiple characters were deleted - there is less text than before
-		else if (currentText.length < previousText.length) {
+		else if (currentText.length < editorPreviousText.length) {
 			meSpeak.stop(speechActionID);
-			meSpeak.speak("delete");
+			speechActionID = meSpeak.speak("delete");
 		}
 		// Something was added - there is more text now than before
-        else if (currentText.length > previousText.length) {
+		else if (currentText.length > editorPreviousText.length) {
 			meSpeak.stop(speechActionID);
-            
-			var charToSpeak = findDifferentCharacter(previousText, currentText);
+
+			var charToSpeak = findDifferentCharacter(editorPreviousText, currentText);
+
 			if (charToSpeak in symbol_map) {
 				speechActionID = meSpeak.speak(symbol_map[charToSpeak]);
 			}
 			else {
-				speechActionID = meSpeak.speak(findDifferentCharacter(previousText, currentText));
-        	}
+				speechActionID = meSpeak.speak(findDifferentCharacter(editorPreviousText, currentText));
+			}
 		}
-		// Nothing we care about happened (the event fired for some other reason)
-		else {
-            return;
-        }
 
-        previousText = currentText;
-    });
+		editorPreviousText = currentText;
+	});
+	
+	// The action menu
+	document.getElementById("action-menu").addEventListener("keyup", function (event) {
+		// Enter was pressed
+		if (event.keyCode == 13) {
+			executeCommand(command);
+			$("text-editor").focus();
+			return;
+		}
+		else {
+			command = $("action-menu").val();
+		}
+		
+		var currentText = $("#action-menu").val();
+
+		// A single character was deleted - there is one less character than before
+		if (currentText.length == actionPreviousText.length - 1) {
+			meSpeak.stop(speechActionID);
+			var charToSpeak = findDifferentCharacter(actionPreviousText, currentText);
+			if (charToSpeak in symbol_map) {
+				speechActionID = meSpeak.speak(symbol_map[charToSpeak]);
+			}
+			else {
+				speechActionID = meSpeak.speak(findDifferentCharacter(actionPreviousText, currentText));
+			}
+		}
+		// Multiple characters were deleted - there is less text than before
+		else if (currentText.length < actionPreviousText.length) {
+			meSpeak.stop(speechActionID);
+			speechActionID = meSpeak.speak("delete");
+		}
+		// Something was added - there is more text now than before
+		else if (currentText.length > actionPreviousText.length) {
+			meSpeak.stop(speechActionID);
+
+			var charToSpeak = findDifferentCharacter(actionPreviousText, currentText);
+
+			if (charToSpeak in symbol_map) {
+				speechActionID = meSpeak.speak(symbol_map[charToSpeak]);
+			}
+			else {
+				speechActionID = meSpeak.speak(findDifferentCharacter(actionPreviousText, currentText));
+			}
+		}
+
+		actionPreviousText = currentText;
+	});
 }
 
+function executeCommand(command)
+{
+	alert("Executing |" + command + "|");
+}
 
 /*
  * If a character was typed into previous to get current, find that character
