@@ -19,6 +19,6 @@ from django.contrib import admin
 
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
-	url(r"^$", include("KeyboardCodeIDE.urls")),
+	url(r"^", include("KeyboardCodeIDE.urls")),
 	url(r"^programming/", include("KeyboardCodeIDE.programming_urls"))
 ]

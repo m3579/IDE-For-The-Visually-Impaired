@@ -1,7 +1,7 @@
 /*
 
 Here is a list of the keyboard shortcuts in KeyboardCode. You can access these shortcuts
-by pressing the control key once (not holding it); you will be taken to a text box on the bottom of
+by pressing the tab key once (not holding it); you will be taken to a text box on the bottom of
 the screen where you will type the command. When you hit enter, the command will be executed and you
 will be taken back to the source code.
 
@@ -35,6 +35,39 @@ Escape				Exit the action manu		Exit the action menu and go back to the code
 Caps Lock-n			Create new file				Create a new file in the file system
 
  */
+
+var defaultSymbolMap = {
+	"^": "caret",
+	"(": "left parenthesis",
+	")": "right parenthesis",
+	"-": "dash",
+	"_": "underscore",
+	"[": "open bracket",
+	"]": "close bracket",
+	"{": "open brace",
+	"}": "close brace",
+	"|": "vertical bar",
+	";": "semicolon",
+	"\"": "double quote",
+	"'": "single quote",
+	"<": "less than",
+	">": "greater than",
+	",": "com ma",  // It is "com ma" because meSpeak.js just says "com" for "comma"
+	".": "period",   // TODO: maybe change this to "dot" based on language?
+	"?": "question mark",
+	"`": "backtick",
+	" ": "space",
+	"\t": "tab",
+	"\n": "enter"
+};
+
+var editorSpeakingOptions = {
+	"variant": "m1"
+};
+
+var actionMenuSpeakingOptions = {
+	"variant": "f2"
+};
 
 $(document).ready(
  	// Get information about the languages's syntax
@@ -81,8 +114,6 @@ function initEditor(symbol_map)
 	
 	var speechActionID;
 	
-	var controlKeyWasPressed = false;
-	
 	var command = "";
 	
 	// The text editor
@@ -91,57 +122,51 @@ function initEditor(symbol_map)
 	// to handle a wider range of events
 	// TODO: (HIGH PRIORITY) register copies, cuts, and pastes
 	// When something changes inside of the editor
-	document.getElementById("editor").addEventListener("keyup", function (event) {
- 
-		// Control was pressed
-		if (event.keyCode == 17) {
-			$("#action-menu").focus();
-			speechActionID = meSpeak.speak("Control");
-			
-			return;
-		}
+	$("#editor").on("keyup", function (event) {
 		
+		// Tab is pressed
+		if (event.keyCode == 9) {
+			$("#action-menu").focus();
+			speechActionID = meSpeak.speak("Tab", actionMenuSpeakingOptions);
+		}
+ 		
 		var currentText = $("#editor").val();
 
 		// A single character was deleted - there is one less character than before
 		if (currentText.length == editorPreviousText.length - 1) {
 			meSpeak.stop(speechActionID);
 			var charToSpeak = findDifferentCharacter(editorPreviousText, currentText);
-			if (charToSpeak in symbol_map) {
-				speechActionID = meSpeak.speak(symbol_map[charToSpeak]);
-			}
-			else {
-				speechActionID = meSpeak.speak(findDifferentCharacter(editorPreviousText, currentText));
-			}
+			speakChar(charToSpeak, symbol_map, editorSpeakingOptions);
 		}
 		// Multiple characters were deleted - there is less text than before
 		else if (currentText.length < editorPreviousText.length) {
 			meSpeak.stop(speechActionID);
-			speechActionID = meSpeak.speak("delete");
+			speechActionID = meSpeak.speak("delete", editorSpeakingOptions);
 		}
 		// Something was added - there is more text now than before
 		else if (currentText.length > editorPreviousText.length) {
 			meSpeak.stop(speechActionID);
 
 			var charToSpeak = findDifferentCharacter(editorPreviousText, currentText);
-
-			if (charToSpeak in symbol_map) {
-				speechActionID = meSpeak.speak(symbol_map[charToSpeak]);
-			}
-			else {
-				speechActionID = meSpeak.speak(findDifferentCharacter(editorPreviousText, currentText));
-			}
+			speakChar(charToSpeak, symbol_map, editorSpeakingOptions);
 		}
 
 		editorPreviousText = currentText;
+	
 	});
 	
+	$("#editor").bind("keyup", "ctrl-m", function () {
+		$("#editor").focus();
+	});
+	
+	
 	// The action menu
-	document.getElementById("action-menu").addEventListener("keyup", function (event) {
+	$("#action-menu").on("keyup", function (event) {
+		
 		// Enter was pressed
 		if (event.keyCode == 13) {
 			executeCommand(command);
-			$("text-editor").focus();
+			$("#editor").focus();
 			return;
 		}
 		else {
@@ -154,34 +179,46 @@ function initEditor(symbol_map)
 		if (currentText.length == actionPreviousText.length - 1) {
 			meSpeak.stop(speechActionID);
 			var charToSpeak = findDifferentCharacter(actionPreviousText, currentText);
-			if (charToSpeak in symbol_map) {
-				speechActionID = meSpeak.speak(symbol_map[charToSpeak]);
-			}
-			else {
-				speechActionID = meSpeak.speak(findDifferentCharacter(actionPreviousText, currentText));
-			}
+			speakChar(charToSpeak, symbol_map, actionMenuSpeakingOptions);
 		}
 		// Multiple characters were deleted - there is less text than before
 		else if (currentText.length < actionPreviousText.length) {
 			meSpeak.stop(speechActionID);
-			speechActionID = meSpeak.speak("delete");
+			speechActionID = meSpeak.speak("delete", actionMenuSpeakingOptions);
 		}
 		// Something was added - there is more text now than before
 		else if (currentText.length > actionPreviousText.length) {
 			meSpeak.stop(speechActionID);
 
 			var charToSpeak = findDifferentCharacter(actionPreviousText, currentText);
-
-			if (charToSpeak in symbol_map) {
-				speechActionID = meSpeak.speak(symbol_map[charToSpeak]);
-			}
-			else {
-				speechActionID = meSpeak.speak(findDifferentCharacter(actionPreviousText, currentText));
-			}
+			speakChar(charToSpeak, symbol_map, actionMenuSpeakingOptions);
 		}
 
 		actionPreviousText = currentText;
 	});
+
+	/**
+	 * Speaks a character with meSpeak.js by first looking if it is in the
+	 * language-specific symbol map that this web app received from the
+	 * server, then checking if it is in the default symbol map,
+	 * then finally just giving it directly to meSpeak.js to speak.
+	 *
+	 * @param [String] charToSpeak - the character to be spoken by meSpeak.js
+	 * @param [Object] symbolMap - the language-specific symbol mapping received from the server that maps
+	 * symbols such as "{" or "^" to the text they should be spoken as, such as "left brace" or "caret"
+	 */
+	function speakChar(charToSpeak, symbolMap, speakingOptions) {
+		if (charToSpeak in symbolMap) {
+			speechActionID = meSpeak.speak(symbolMap[charToSpeak], speakingOptions);
+		}
+		else if (charToSpeak in defaultSymbolMap) {
+			speechActionID = meSpeak.speak(defaultSymbolMap[charToSpeak], speakingOptions);
+		}
+		else {
+			speechActionID = meSpeak.speak(charToSpeak, speakingOptions);
+		}
+
+	}
 }
 
 function executeCommand(command)
