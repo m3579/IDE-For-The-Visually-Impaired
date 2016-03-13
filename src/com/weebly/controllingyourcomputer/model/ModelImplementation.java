@@ -3,6 +3,8 @@
  */
 package com.weebly.controllingyourcomputer.model;
 
+import java.awt.event.KeyEvent;
+
 import com.weebly.controllingyourcomputer.view.View;
 
 /**
@@ -46,5 +48,17 @@ public class ModelImplementation implements Model
 	public void Start()
 	{
 		speechManager.speak("Welcome to Keyboard Code");
+	}
+
+	/**
+	 * The method that the controller will invoke if a character must be spoken
+	 * (i.e. when a new character is typed or when the user moves around the text
+	 * with the arrow keys)
+	 * @param keycode the key code of the character that needs to be spoken
+	 */
+	@Override
+	public void SpeakCurrentChar(int keycode)
+	{
+		speechManager.speak(KeyEvent.getKeyText(keycode));
 	}
 }

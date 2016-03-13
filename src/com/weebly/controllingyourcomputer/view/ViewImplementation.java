@@ -56,8 +56,10 @@ public class ViewImplementation implements View
 
 		frame.getContentPane().add(mainPanel);
 		frame.setVisible(true);
-
-		controller.SendEvent(new ControllerEventArgs(ControllerEventType.STARTED));
+		
+		ControllerEventArgs args = new ControllerEventArgs();
+		args.setEventType(ControllerEventType.STARTED);
+		controller.RegisterEvent(args);
 	}
 	
 	class ControllerKeyListener implements KeyListener
@@ -66,15 +68,17 @@ public class ViewImplementation implements View
 		@Override
 		public void keyTyped(KeyEvent e)
 		{
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void keyPressed(KeyEvent e)
 		{
-			// TODO Auto-generated method stub
-			
+			System.out.println("Typed");
+			ControllerEventArgs args = new ControllerEventArgs();
+			args.setEventType(ControllerEventType.KEYPRESSED);
+			args.setPressedKey(e.getKeyCode());
+			controller.RegisterEvent(args);
 		}
 
 		@Override

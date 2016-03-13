@@ -28,5 +28,5 @@ public interface Controller
 	 * 
 	 * @param args arguments containing information about the event that had happened
 	 */
-	void SendEvent(ControllerEventArgs args);
+	void RegisterEvent(ControllerEventArgs args);
 }

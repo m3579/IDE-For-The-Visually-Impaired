@@ -39,7 +39,7 @@ public class ControllerImplementation implements Controller
 	 * @param args any arguments that the view needs to supply the controller with
 	 */
 	@Override
-	public void SendEvent(ControllerEventArgs args)
+	public void RegisterEvent(ControllerEventArgs args)
 	{
 		ControllerEventType type = args.getEventType();
 		
@@ -48,6 +48,13 @@ public class ControllerImplementation implements Controller
 			case STARTED: {
 				
 				model.Start();
+				
+				break;
+			}
+			
+			case KEYPRESSED: {
+				
+				model.SpeakCurrentChar(args.getKeyCode());
 				
 				break;
 			}
