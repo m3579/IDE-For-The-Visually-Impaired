@@ -47,7 +47,18 @@ public class FreeTTSSpeechManager implements SpeechManager
 		thread.start();
 	}
 	
-
+	/**
+	 * Speak text to the user
+	 * @param text the text to speak
+	 * @param rate the rate to speak at in words per minute
+	 */
+	@Override
+	public void speak(String text, int rate)
+	{
+		Thread thread = new Thread(new SpeakTextRunnable(text, rate));
+		thread.start();
+	}
+	
 	
 	/**
 	 * A class used to asynchronously speak text (otherwise, the user would
@@ -60,9 +71,18 @@ public class FreeTTSSpeechManager implements SpeechManager
 	{
 		private String text;
 		
+		private int rate;
+		
 		public SpeakTextRunnable(String text)
 		{
 			this.text = text;
+			this.rate = 250;
+		}
+		
+		public SpeakTextRunnable(String text, int rate)
+		{
+			this.text = text;
+			this.rate = rate;
 		}
 		
 		// TODO: Sometimes this error occurs:
@@ -78,6 +98,8 @@ public class FreeTTSSpeechManager implements SpeechManager
 		//	 at java.lang.Thread.run(Thread.java:745)
 		// when the user types a lot of keys fast. Although it does not crash the
 		// application (thanks, God!), it should be resolved.
+		// TODO: make the speech manager stop whatever it is saying before
+		// saying something new
 		@Override
 		public void run()
 		{
@@ -86,7 +108,7 @@ public class FreeTTSSpeechManager implements SpeechManager
 			}
 			
 			Voice voice = voiceManager.getVoice("kevin");
-			voice.setRate(250);
+			voice.setRate(rate);
 			voice.allocate();
 			voice.speak(text);
 			voice.deallocate();

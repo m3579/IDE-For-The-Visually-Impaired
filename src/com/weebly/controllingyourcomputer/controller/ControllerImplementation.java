@@ -3,6 +3,8 @@
  */
 package com.weebly.controllingyourcomputer.controller;
 
+import javax.swing.JTextArea;
+
 import com.weebly.controllingyourcomputer.model.Model;
 
 /**
@@ -52,9 +54,12 @@ public class ControllerImplementation implements Controller
 				break;
 			}
 			
+			// TODO: make speaking more robust (i.e. stops speaking from previous speak() call
+			// if speak() is called again, resolve when it cannot figure out or will mispronounce
+			// a phrase or "Can't find diphone y-w/w-p/w-l", etc.)
 			case KEYPRESSED: {
-				
-				model.SpeakCurrentChar(args.getKeyCode());
+				// TODO: make sure that args.getWidget() actually is a JTextArea
+				model.SpeakCurrentChar(args.getKeyCode(), (JTextArea)args.getWidget());
 				
 				break;
 			}

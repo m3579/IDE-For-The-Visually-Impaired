@@ -1,5 +1,7 @@
 package com.weebly.controllingyourcomputer.controller;
 
+import javax.swing.JComponent;
+
 /**
  * Arguments sent by the view in a message to the controller to do something
  * 
@@ -19,6 +21,11 @@ public class ControllerEventArgs
 	 * pressed
 	 */
 	private int keyCode;
+	
+	/**
+	 * The widget on the user interface related to the event
+	 */
+	private JComponent widget;
 	
 	/**
 	 * Creates a new ControllerEventArgs object setting every member to its
@@ -56,6 +63,16 @@ public class ControllerEventArgs
 	}
 	
 	/**
+	 * Set the widget in the user interface that is relevant to this event
+	 */
+	public ControllerEventArgs setWidget(JComponent widget)
+	{
+		this.widget = widget;
+		
+		return this;
+	}
+	
+	/**
 	 * Returns the type of the event (in essence, what the event itself is)
 	 * @return the type of the event
 	 */
@@ -73,5 +90,14 @@ public class ControllerEventArgs
 	public int getKeyCode()
 	{
 		return keyCode;
+	}
+	
+	/**
+	 * Returns the widget in the user interface related to this event
+	 * @return
+	 */
+	public JComponent getWidget()
+	{
+		return widget;
 	}
 }

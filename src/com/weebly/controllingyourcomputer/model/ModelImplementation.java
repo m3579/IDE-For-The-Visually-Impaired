@@ -5,6 +5,8 @@ package com.weebly.controllingyourcomputer.model;
 
 import java.awt.event.KeyEvent;
 
+import javax.swing.JTextArea;
+
 import com.weebly.controllingyourcomputer.view.View;
 
 /**
@@ -47,7 +49,7 @@ public class ModelImplementation implements Model
 	@Override
 	public void Start()
 	{
-		speechManager.speak("Welcome to Keyboard Code");
+		speechManager.speak("Welcome to Keyboard Code", 120);
 	}
 
 	/**
@@ -55,10 +57,22 @@ public class ModelImplementation implements Model
 	 * (i.e. when a new character is typed or when the user moves around the text
 	 * with the arrow keys)
 	 * @param keycode the key code of the character that needs to be spoken
+	 * @param textArea the JTextArea where the event happened
 	 */
+	// TODO: change "backspace" to "delete"
 	@Override
-	public void SpeakCurrentChar(int keycode)
+	public void SpeakCurrentChar(int keycode, JTextArea textArea)
 	{
+		// Escape pressed - go to action menu
+		if (keycode == 27) {
+			speechManager.speak("Command", 160);
+			return;
+		}
+		else if (keycode >= 37 && keycode <= 40) {
+			String selectedText = textArea.getSelectedText();
+			speechManager.speak(selectedText, 200);
+		}
+		
 		speechManager.speak(KeyEvent.getKeyText(keycode));
 	}
 }

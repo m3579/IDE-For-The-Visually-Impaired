@@ -17,4 +17,11 @@ public interface SpeechManager
 	 * @param text the text to speak
 	 */
 	void speak(String text);
+	
+	/**
+	 * Speak the given text to the user at the given WPM (words per minute) rate
+	 * @param text the text to speak
+	 * @param rate the rate to speak at in words per minute
+	 */
+	void speak(String text, int rate);
 }

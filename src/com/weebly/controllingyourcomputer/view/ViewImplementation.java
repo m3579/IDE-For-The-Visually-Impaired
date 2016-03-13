@@ -26,6 +26,8 @@ public class ViewImplementation implements View
 {
 	private Controller controller;
 
+	private JTextArea textArea;
+	
 	@Override
 	public View setController(Controller controller)
 	{
@@ -45,9 +47,9 @@ public class ViewImplementation implements View
 		
 		JPanel editorPanel = new JPanel();
 		
-		JTextArea textArea = new JTextArea(50, 30);
+	    textArea = new JTextArea(50, 30);
 		textArea.addKeyListener(new ControllerKeyListener());
-		
+	
 		editorPanel.add(textArea);
 		
 		mainPanel.add(editorPanel);
@@ -78,6 +80,7 @@ public class ViewImplementation implements View
 			ControllerEventArgs args = new ControllerEventArgs();
 			args.setEventType(ControllerEventType.KEYPRESSED);
 			args.setPressedKey(e.getKeyCode());
+			args.setWidget(textArea);
 			controller.RegisterEvent(args);
 		}
 

@@ -3,6 +3,8 @@
  */
 package com.weebly.controllingyourcomputer.model;
 
+import javax.swing.JTextArea;
+
 import com.weebly.controllingyourcomputer.view.View;
 
 /**
@@ -32,6 +34,7 @@ public interface Model
 	 * (i.e. when a new character is typed or when the user moves around the text
 	 * with the arrow keys)
 	 * @param keycode the key code of the character that needs to be spoken
+	 * @param textArea the JTextArea where the event happened
 	 */
-	void SpeakCurrentChar(int keycode);
+	void SpeakCurrentChar(int keycode, JTextArea textArea);
 }
