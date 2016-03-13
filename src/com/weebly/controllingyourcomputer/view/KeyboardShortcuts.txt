@@ -23,7 +23,7 @@ new <string>		New file					Create a new file with the given name
 
 There is a special command that reads the text in the action menu:
 
-Ctrl-R,				Read action menu command	Reads the text entered in the action menu
+Ctrl-R				Read action menu command	Reads the text entered in the action menu
 
 Then there are these:
 

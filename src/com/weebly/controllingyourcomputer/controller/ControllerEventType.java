@@ -12,5 +12,5 @@ package com.weebly.controllingyourcomputer.controller;
  */
 public enum ControllerEventType
 {
-	STARTED, KEYPRESSED, NOEVENT
+	STARTED, EDITORKEYPRESSED, ACTIONKEYTYPED, NOEVENT
 }

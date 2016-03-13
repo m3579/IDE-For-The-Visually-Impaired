@@ -26,7 +26,9 @@ public class ViewImplementation implements View
 {
 	private Controller controller;
 
-	private JTextArea textArea;
+	private JTextArea editorTextArea;
+	
+	private JTextArea actionTextArea;
 	
 	@Override
 	public View setController(Controller controller)
@@ -40,17 +42,22 @@ public class ViewImplementation implements View
 	{
 		JFrame frame = new JFrame("Keyboard Code");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(600, 600);
+		frame.setSize(700, 700);
 		
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
 		
 		JPanel editorPanel = new JPanel();
+		//editorPanel.setLayout(new BoxLayout(editorPanel, BoxLayout.Y_AXIS));
 		
-	    textArea = new JTextArea(50, 30);
-		textArea.addKeyListener(new ControllerKeyListener());
+	    editorTextArea = new JTextArea(30, 30);
+		editorTextArea.addKeyListener(new EditorKeyListener());
 	
-		editorPanel.add(textArea);
+		editorPanel.add(editorTextArea);
+		
+		actionTextArea = new JTextArea(10, 20);
+		actionTextArea.addKeyListener(new ActionKeyListener());
+		editorPanel.add(actionTextArea);
 		
 		mainPanel.add(editorPanel);
 		
@@ -64,32 +71,69 @@ public class ViewImplementation implements View
 		controller.RegisterEvent(args);
 	}
 	
-	class ControllerKeyListener implements KeyListener
+	public void moveToActionTextArea()
+	{
+		actionTextArea.requestFocus();
+	}
+	
+	public void moveToEditorTextArea()
+	{
+		editorTextArea.requestFocus();
+	}
+	
+	class EditorKeyListener implements KeyListener
 	{
 
 		@Override
 		public void keyTyped(KeyEvent e)
 		{
-			
+
 		}
 
 		@Override
 		public void keyPressed(KeyEvent e)
 		{
-			System.out.println("Typed");
+			System.out.println("Pressed");
 			ControllerEventArgs args = new ControllerEventArgs();
-			args.setEventType(ControllerEventType.KEYPRESSED);
+			args.setEventType(ControllerEventType.EDITORKEYPRESSED);
 			args.setPressedKey(e.getKeyCode());
-			args.setWidget(textArea);
+			args.setWidget(editorTextArea);
 			controller.RegisterEvent(args);
 		}
 
 		@Override
 		public void keyReleased(KeyEvent e)
 		{
-			// TODO Auto-generated method stub
+			
+		}
+	}
+	
+	
+	class ActionKeyListener implements KeyListener
+	{
+
+		@Override
+		public void keyTyped(KeyEvent e)
+		{
+			ControllerEventArgs args = new ControllerEventArgs();
+			args.setEventType(ControllerEventType.ACTIONKEYTYPED);
+			args.setTypedCharacter(e.getKeyChar());
+			args.setWidget(actionTextArea);
+			controller.RegisterEvent(args);
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e)
+		{
+
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e)
+		{
 			
 		}
 		
 	}
+	
 }

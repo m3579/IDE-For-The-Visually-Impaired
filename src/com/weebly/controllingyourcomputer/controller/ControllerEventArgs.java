@@ -20,7 +20,9 @@ public class ControllerEventArgs
 	 * If the event was that a key was pressed, the key code of the key that was
 	 * pressed
 	 */
-	private int keyCode;
+	private int pressedKeyCode;
+	
+	private char typedCharacter;
 	
 	/**
 	 * The widget on the user interface related to the event
@@ -57,7 +59,14 @@ public class ControllerEventArgs
 	 */
 	public ControllerEventArgs setPressedKey(int keyCode)
 	{
-		this.keyCode = keyCode;
+		this.pressedKeyCode = keyCode;
+		
+		return this;
+	}
+	
+	public ControllerEventArgs setTypedCharacter(char character)
+	{
+		this.typedCharacter = character;
 		
 		return this;
 	}
@@ -89,7 +98,12 @@ public class ControllerEventArgs
 	 */
 	public int getKeyCode()
 	{
-		return keyCode;
+		return pressedKeyCode;
+	}
+	
+	public char getTypedCharacter()
+	{
+		return typedCharacter;
 	}
 	
 	/**

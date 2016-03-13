@@ -14,4 +14,7 @@ public interface View
 	View setController(Controller controller);
 
 	void start();
+	
+	void moveToActionTextArea();
+	void moveToEditorTextArea();
 }

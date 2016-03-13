@@ -5,6 +5,7 @@ package com.weebly.controllingyourcomputer.model;
 
 import java.awt.event.KeyEvent;
 
+import javax.swing.JComponent;
 import javax.swing.JTextArea;
 
 import com.weebly.controllingyourcomputer.view.View;
@@ -28,6 +29,8 @@ public class ModelImplementation implements Model
 	 * future, maybe listening to the user as well)
 	 */
 	private SpeechManager speechManager;
+	
+	private String actionString = "";
 	
 	/**
 	 * Initialize the model with the given view to manipulate
@@ -66,13 +69,49 @@ public class ModelImplementation implements Model
 		// Escape pressed - go to action menu
 		if (keycode == 27) {
 			speechManager.speak("Command", 160);
+			view.moveToActionTextArea();
 			return;
 		}
+		// Arrow keys
 		else if (keycode >= 37 && keycode <= 40) {
 			String selectedText = textArea.getSelectedText();
-			speechManager.speak(selectedText, 200);
+			if (selectedText != null) {
+				speechManager.speak(selectedText, 200);
+				return;
+			}
+			else {
+				// TODO: when moving left with left arrow key, make speaker
+				// read character that the cursor is on the right of, not the one
+				// that the cursor is on the left of
+				int caretPosition = textArea.getCaretPosition();
+				if (caretPosition > 0) {
+					speechManager.speak(String.valueOf(textArea.getText().charAt(caretPosition - 1)));
+				}
+				else {
+					speechManager.speak(String.valueOf(textArea.getText().charAt(0)));
+				}
+				return;
+			}
 		}
 		
 		speechManager.speak(KeyEvent.getKeyText(keycode));
+	}
+	
+	public void RegisterActionCommandCharacter(char c, JComponent widget)
+	{
+		if (c == '\n') {
+			JTextArea actionTextArea = (JTextArea)widget;
+			executeAction(actionTextArea.getText());
+			actionTextArea.setText("");
+		
+			view.moveToEditorTextArea();
+			
+			return;
+		}
+	}
+	
+	private void executeAction(String action)
+	{
+		System.out.println(action);
 	}
 }

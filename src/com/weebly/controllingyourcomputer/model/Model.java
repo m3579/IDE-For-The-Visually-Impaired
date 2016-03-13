@@ -3,6 +3,7 @@
  */
 package com.weebly.controllingyourcomputer.model;
 
+import javax.swing.JComponent;
 import javax.swing.JTextArea;
 
 import com.weebly.controllingyourcomputer.view.View;
@@ -37,4 +38,6 @@ public interface Model
 	 * @param textArea the JTextArea where the event happened
 	 */
 	void SpeakCurrentChar(int keycode, JTextArea textArea);
+	
+	void RegisterActionCommandCharacter(char c, JComponent widget);
 }
