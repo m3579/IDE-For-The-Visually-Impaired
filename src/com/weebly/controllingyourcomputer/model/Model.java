@@ -3,7 +3,8 @@
  */
 package com.weebly.controllingyourcomputer.model;
 
-import javax.swing.JComponent;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JTextArea;
 
 import com.weebly.controllingyourcomputer.view.View;
@@ -34,10 +35,12 @@ public interface Model
 	 * The method that the controller will invoke if a character must be spoken
 	 * (i.e. when a new character is typed or when the user moves around the text
 	 * with the arrow keys)
-	 * @param keycode the key code of the character that needs to be spoken
+	 * @param keyEvent the KeyEvent obtained from the event
 	 * @param textArea the JTextArea where the event happened
 	 */
-	void SpeakCurrentChar(int keycode, JTextArea textArea);
+	void registerEditorKeyRelease(KeyEvent keyEvent, JTextArea textArea);
 	
-	void RegisterActionCommandCharacter(char c, JComponent widget);
+	void registerActionKeyRelease(KeyEvent keyEvent, JTextArea textArea);
+
+	void registerEditorKeyType(KeyEvent keyEvent, JTextArea widget);
 }

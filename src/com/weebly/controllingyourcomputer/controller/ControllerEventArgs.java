@@ -1,5 +1,7 @@
 package com.weebly.controllingyourcomputer.controller;
 
+import java.awt.event.KeyEvent;
+
 import javax.swing.JComponent;
 
 /**
@@ -16,13 +18,7 @@ public class ControllerEventArgs
 	 */
 	private ControllerEventType type;
 	
-	/**
-	 * If the event was that a key was pressed, the key code of the key that was
-	 * pressed
-	 */
-	private int pressedKeyCode;
-	
-	private char typedCharacter;
+	private KeyEvent keyEvent;
 	
 	/**
 	 * The widget on the user interface related to the event
@@ -51,22 +47,9 @@ public class ControllerEventArgs
 		return this;
 	}
 	
-	/**
-	 * Set the key code of the key that was pressed, if the event is that
-	 * a key was pressed
-	 * @param keyCode the key code of the key that was pressed
-	 * @return the ControllerEventArgs object itself, enabling code such as <code>ControllerEventArgs args = new ControllerEventArgs().setEventType(type);</code>
-	 */
-	public ControllerEventArgs setPressedKey(int keyCode)
+	public ControllerEventArgs setKeyEvent(KeyEvent keyEvent)
 	{
-		this.pressedKeyCode = keyCode;
-		
-		return this;
-	}
-	
-	public ControllerEventArgs setTypedCharacter(char character)
-	{
-		this.typedCharacter = character;
+		this.keyEvent = keyEvent;
 		
 		return this;
 	}
@@ -90,20 +73,9 @@ public class ControllerEventArgs
 		return type;
 	}
 	
-	/**
-	 * Returns the key code of the key that was pressed in the case of an event
-	 * in which a key was pressed
-	 * @return the key code of the key that was pressed
-	 * @return
-	 */
-	public int getKeyCode()
+	public KeyEvent getKeyEvent()
 	{
-		return pressedKeyCode;
-	}
-	
-	public char getTypedCharacter()
-	{
-		return typedCharacter;
+		return keyEvent;
 	}
 	
 	/**

@@ -3,6 +3,7 @@
  */
 package com.weebly.controllingyourcomputer.view;
 
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -10,6 +11,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.text.Caret;
 
 import com.weebly.controllingyourcomputer.controller.Controller;
 import com.weebly.controllingyourcomputer.controller.ControllerEventArgs;
@@ -62,13 +64,15 @@ public class ViewImplementation implements View
 		mainPanel.add(editorPanel);
 		
 		JPanel filesystemPanel = new JPanel();
-
+		// Will add content to the filesystemPanel later
+		mainPanel.add(filesystemPanel);
+		
 		frame.getContentPane().add(mainPanel);
 		frame.setVisible(true);
 		
 		ControllerEventArgs args = new ControllerEventArgs();
 		args.setEventType(ControllerEventType.STARTED);
-		controller.RegisterEvent(args);
+		controller.registerEvent(args);
 	}
 	
 	public void moveToActionTextArea()
@@ -93,18 +97,21 @@ public class ViewImplementation implements View
 		@Override
 		public void keyPressed(KeyEvent e)
 		{
-			System.out.println("Pressed");
 			ControllerEventArgs args = new ControllerEventArgs();
-			args.setEventType(ControllerEventType.EDITORKEYPRESSED);
-			args.setPressedKey(e.getKeyCode());
+			args.setEventType(ControllerEventType.EDITORKEYTYPED);
+			args.setKeyEvent(e);
 			args.setWidget(editorTextArea);
-			controller.RegisterEvent(args);
+			controller.registerEvent(args);
 		}
 
 		@Override
 		public void keyReleased(KeyEvent e)
 		{
-			
+			ControllerEventArgs args = new ControllerEventArgs();
+			args.setEventType(ControllerEventType.EDITORKEYRELEASED);
+			args.setKeyEvent(e);
+			args.setWidget(editorTextArea);
+			controller.registerEvent(args);
 		}
 	}
 	
@@ -115,25 +122,120 @@ public class ViewImplementation implements View
 		@Override
 		public void keyTyped(KeyEvent e)
 		{
-			ControllerEventArgs args = new ControllerEventArgs();
-			args.setEventType(ControllerEventType.ACTIONKEYTYPED);
-			args.setTypedCharacter(e.getKeyChar());
-			args.setWidget(actionTextArea);
-			controller.RegisterEvent(args);
+			
 		}
 
 		@Override
 		public void keyPressed(KeyEvent e)
 		{
-
+			
 		}
 
 		@Override
 		public void keyReleased(KeyEvent e)
 		{
-			
+			ControllerEventArgs args = new ControllerEventArgs();
+			args.setEventType(ControllerEventType.ACTIONKEYPRESSED);
+			args.setKeyEvent(e);
+			args.setWidget(actionTextArea);
+			controller.registerEvent(args);
 		}
 		
 	}
+
+	// KEYBOARD SHORTCUTS =========================================================
+
+	@Override
+	public void goToLine(int line)
+	{
+		Caret caret = editorTextArea.getCaret();
+		caret.setMagicCaretPosition(new Point(0, line));
+		System.out.println("Went to position");
+	}
+
+	@Override
+	public void recallVariableNames()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void speakLine()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void speakSelected()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void runThrough(int beginning, int end)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void makeMarker(String name)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void goToMarker(String name)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void goToPrevious(String construct)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void goToNext(String construct)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setSpeechSpeed(int wpm)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createNewFile(String name)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void readActionText()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void exitActionMenu()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 	
+	// ============================================================================
 }

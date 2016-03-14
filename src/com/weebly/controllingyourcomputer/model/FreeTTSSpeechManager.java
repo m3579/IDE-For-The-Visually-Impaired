@@ -1,7 +1,5 @@
 package com.weebly.controllingyourcomputer.model;
 
-import java.awt.event.KeyEvent;
-
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
@@ -11,6 +9,8 @@ import com.sun.speech.freetts.VoiceManager;
  * @author Mihir Kasmalkar
  *
  */
+// TODO: make sure that when the user is typing fast, letters don't "overlap"
+// each other
 public class FreeTTSSpeechManager implements SpeechManager
 {
 //	/**

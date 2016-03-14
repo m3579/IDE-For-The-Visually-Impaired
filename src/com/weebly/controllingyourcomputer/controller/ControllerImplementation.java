@@ -3,8 +3,6 @@
  */
 package com.weebly.controllingyourcomputer.controller;
 
-import java.awt.event.KeyEvent;
-
 import javax.swing.JTextArea;
 
 import com.weebly.controllingyourcomputer.model.Model;
@@ -45,7 +43,7 @@ public class ControllerImplementation implements Controller
 	@Override
 	// TODO: handle if an argument in ControllerEventArgs is not present for
 	// a specific scenario
-	public void RegisterEvent(ControllerEventArgs args)
+	public void registerEvent(ControllerEventArgs args)
 	{
 		ControllerEventType type = args.getEventType();
 		
@@ -61,15 +59,20 @@ public class ControllerImplementation implements Controller
 			// TODO: make speaking more robust (i.e. stops speaking from previous speak() call
 			// if speak() is called again, resolve when it cannot figure out or will mispronounce
 			// a phrase or "Can't find diphone y-w/w-p/w-l", etc.)
-			case EDITORKEYPRESSED: {
+			case EDITORKEYRELEASED: {
 				// TODO: make sure that args.getWidget() actually is a JTextArea
-				model.SpeakCurrentChar(args.getKeyCode(), (JTextArea)args.getWidget());
+				model.registerEditorKeyRelease(args.getKeyEvent(), (JTextArea)args.getWidget());
 				
 				break;
 			}
 			
-			case ACTIONKEYTYPED: {
-				model.RegisterActionCommandCharacter(args.getTypedCharacter(), args.getWidget());
+			case EDITORKEYTYPED: {
+				model.registerEditorKeyType(args.getKeyEvent(), (JTextArea)args.getWidget());
+				break;
+			}
+			
+			case ACTIONKEYPRESSED: {
+				model.registerActionKeyRelease(args.getKeyEvent(), (JTextArea)args.getWidget());
 				
 				break;
 			}
