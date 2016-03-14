@@ -4,18 +4,11 @@ commands and press enter; the command will be executed and you
 will be taken back to the source code.
 
 line <number>		Go to line					Will go to the specified line number
-v					Recall variable name		Will speak the names of the defined variables in the current scope
 s					Speak line					Speak the text of the current line from the beginning
 ss					Speak selected				Speak the selected text
-runth <number> <number>
-					Run through					Go through the the lines of code from the first number'th line to the second
 												number'th line and speak the first words
 m <string>			Marker						Make a marker with the given name
 g <string>			Go to marker				Go to the marker with the given name
-pre	<construct>		Previous					Go to the most recent previous occurence of the construct
-												(which will vary from language to language, but will usually be
-												things like "if", "for", etc.)
-next <construct>	Next						Go to the next occurence of the construct
 
 speed <number>		Set speech speed			Set the speaker's speed in words per minute
 

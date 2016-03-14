@@ -4,10 +4,13 @@
 package com.weebly.controllingyourcomputer.view;
 
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -64,6 +67,17 @@ public class ViewImplementation implements View
 		mainPanel.add(editorPanel);
 		
 		JPanel filesystemPanel = new JPanel();
+		JButton testCaretPosition = new JButton("Caret");
+		testCaretPosition.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				System.out.println(editorTextArea.getCaretPosition());
+			}
+			
+		});
+		filesystemPanel.add(testCaretPosition);
 		// Will add content to the filesystemPanel later
 		mainPanel.add(filesystemPanel);
 		

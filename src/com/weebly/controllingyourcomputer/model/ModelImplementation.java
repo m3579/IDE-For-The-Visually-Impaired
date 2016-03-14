@@ -35,6 +35,11 @@ public class ModelImplementation implements Model
 	
 	private boolean charWasTyped = false;
 	
+	private int charIndex = -1;
+			
+	private boolean stopMovingLeft = false;
+	private boolean stopMovingRight = false;
+	
 	/**
 	 * A mapping between symbols that FreeTTS cannot pronounce or pronounces
 	 * improperly (for example, it calls both { and [ "open bracket") and the
@@ -71,6 +76,8 @@ public class ModelImplementation implements Model
 		symbolsToText.put("?", "question mark");
 		symbolsToText.put("`", "backtick");
 		symbolsToText.put("\t", "tab");
+		symbolsToText.put(" ", "space");
+		// TODO: Add another entry for enter/newline?
 	}
 		
 	/**
@@ -133,56 +140,12 @@ public class ModelImplementation implements Model
 			// Make sure that the newline is not appended to the text area
 			// (I set the text to "" in this method, BEFORE the newline will be
 			// registered, so I need to disable it)
-			
 			keyEvent.consume();
 		
 			view.moveToEditorTextArea();
 		}
 		else {
 			speakCurrentChar(keyEvent, textArea);
-		}
-	}
-	
-	// TODO: change "backspace" to "delete"
-	public void speakCurrentChar(KeyEvent keyEvent, JTextArea textArea)
-	{
-		int keycode = keyEvent.getKeyCode();
-		
-		// Arrow keys
-		if (arrowKeyCodes.contains(keycode)) {
-			String selectedText = textArea.getSelectedText();
-			if (selectedText != null) {
-				speechManager.speak(selectedText, 200);
-			}
-			else {
-				String text = textArea.getText();
-				
-				// TODO: when moving left with left arrow key, make speaker
-				// read character that the cursor is on the right of, not the one
-				// that the cursor is on the left of
-				int caretPosition = textArea.getCaretPosition();
-				
-				// If the caret (the vertical line where text is inserted in
-				// the text box) has moved past the beginning or the end,
-				// make a beep sound
-				if (caretPosition == text.length()) {
-					java.awt.Toolkit.getDefaultToolkit().beep();
-				}
-				else if (caretPosition == 0) {
-					java.awt.Toolkit.getDefaultToolkit().beep();
-					speechManager.speak(getPronounceableString(text.charAt(0)));
-				}
-				else {
-					// I get the keycode of the char, then get the char for that keycode, then speak it
-					// The reason why I don't just speak the char is because FreeTTS is not capable of speaking
-					// certain characters (such as "{", so I get the text of the char from its key
-					// code (like "Left brace"), which it can pronounce
-					speechManager.speak(getPronounceableString(text.charAt(caretPosition)));
-				}
-			}
-		}
-		else {
-			speechManager.speak(getPronounceableString(keyEvent.getKeyChar()));
 		}
 	}
 
@@ -200,13 +163,119 @@ public class ModelImplementation implements Model
 			return;
 		}
 
+		if (arrowKeyCodes.contains(keycode)) {
+			speakCurrentChar(keyEvent, textArea);
+			return;
+		}
+		
 		if (keycode == KeyEvent.CHAR_UNDEFINED) {
 			charWasTyped = false;
 			return;
 		}
 		else {
-			speechManager.speak(getPronounceableString(keyEvent.getKeyChar()));
+			speakCurrentChar(keyEvent, textArea);
 			charWasTyped = true;
+		}
+	}
+
+	// TODO: change "backspace" to "delete"
+	public void speakCurrentChar(KeyEvent keyEvent, JTextArea textArea)
+	{
+		int keycode = keyEvent.getKeyCode();
+		
+		// TODO: sometimes this exception occurs when typing fast:
+//		Exception in thread "Thread-131" java.lang.IndexOutOfBoundsException: Index: 24, Size: 6
+//		at java.util.ArrayList.rangeCheck(ArrayList.java:653)
+//		at java.util.ArrayList.get(ArrayList.java:429)
+//		at com.sun.speech.freetts.lexicon.LetterToSoundImpl$FinalState.loadBinary(LetterToSoundImpl.java:851)
+//		at com.sun.speech.freetts.lexicon.LetterToSoundImpl.loadBinary(LetterToSoundImpl.java:308)
+//		at com.sun.speech.freetts.lexicon.LetterToSoundImpl.<init>(LetterToSoundImpl.java:221)
+//		at com.sun.speech.freetts.lexicon.LexiconImpl.load(LexiconImpl.java:313)
+//		at com.sun.speech.freetts.Voice.allocate(Voice.java:331)
+//		at com.weebly.controllingyourcomputer.model.FreeTTSSpeechManager$SpeakTextRunnable.run(FreeTTSSpeechManager.java:112)
+//		at java.lang.Thread.run(Thread.java:745)
+		// Although it does not crash the application, it must be taken care of
+		
+		// Arrow keys
+		if (arrowKeyCodes.contains(keycode)) {
+			System.out.println("An arrow key was pressed");
+			String selectedText = textArea.getSelectedText();
+			
+			// Text is highlighted
+			if (selectedText != null) {
+				speechManager.speak(selectedText, 200);
+			}
+			// User is just moving around with arrow keys
+			else {
+				String text = textArea.getText();
+				
+				// TODO: when moving left with left arrow key, make speaker
+				// read character that the cursor is on the right of, not the one
+				// that the cursor is on the left
+
+				if (keycode == KeyEvent.VK_RIGHT) {
+					if (charIndex < text.length() - 1) {
+						if (!stopMovingRight) {
+							charIndex++;
+							stopMovingRight = true;
+						}
+					}
+					else {
+						charIndex++;
+					}
+				}
+				else if (keycode == KeyEvent.VK_LEFT) {
+					if (charIndex < 0) {
+						if (!stopMovingLeft) {
+							charIndex--;
+							stopMovingLeft = true;
+						}
+					}
+					else {
+						charIndex--;
+					}
+				}
+				else if (keycode == KeyEvent.VK_DOWN) {
+					// TODO: implement going down
+				}
+				else if (keycode == KeyEvent.VK_UP) {
+					// TODO: implement going up
+				}
+				
+				System.out.println("The index is " + charIndex);
+				
+				// User is at very beginning of the text area
+				if (charIndex <= 0) {
+					speechManager.speak(getPronounceableString(text.charAt(0)));
+					java.awt.Toolkit.getDefaultToolkit().beep();			
+					return;
+				}
+				// User is at the end of the text
+				else if (charIndex == text.length() - 1) {
+					speechManager.speak(getPronounceableString(text.charAt(text.length() - 1)));
+					java.awt.Toolkit.getDefaultToolkit().beep();
+					return;
+				}
+				// User is somewhere in the text area
+				// Speak the character in front of the caret (the cursor)
+				else {
+					speechManager.speak(getPronounceableString(text.charAt(charIndex)));
+				}
+		
+			}
+		}
+		// Normal character
+		else {
+			
+			if (keycode == KeyEvent.VK_BACK_SPACE) {
+				charIndex--;
+			}
+			else {
+				charIndex++;
+				System.out.println("Incremented: " + charIndex);
+			}
+			
+			speechManager.speak(getPronounceableString(keyEvent.getKeyChar()));
 		}
 	}
 	
