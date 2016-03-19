@@ -1,0 +1,7 @@
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppLogicUnitTests\bin\Debug\AppLogicUnitTests.exe
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppLogicUnitTests\bin\Debug\AppLogicUnitTests.pdb
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppLogicUnitTests\bin\Debug\AppLogic.dll
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppLogicUnitTests\bin\Debug\AppLogic.pdb
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppLogicUnitTests\obj\x86\Debug\AppLogicUnitTests.csprojResolveAssemblyReference.cache
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppLogicUnitTests\obj\x86\Debug\AppLogicUnitTests.exe
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppLogicUnitTests\obj\x86\Debug\AppLogicUnitTests.pdb
