@@ -35,3 +35,4 @@ interface that other code can implement, so that we can switch out a model, view
 
 The AppLogic project contains the model and controller; and as of right now, the AppView project contains the view. However, in the future,
 the view may be split between several projects (one view for Mac OS X, one view for Windows, etc.).
+

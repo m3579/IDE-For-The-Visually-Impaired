@@ -18,8 +18,6 @@ namespace AppView
 		{
 			Console.WriteLine ("Started");
 
-			Application.Init ();
-
 			Console.WriteLine ("Initialized Application");
 
 			// Create the model, view, and controller of the Model-View-Controller architecture
@@ -34,13 +32,12 @@ namespace AppView
 			controller.SetModel (model);
 
 			Console.WriteLine ("Initialized Model, View, and Controller");
-		
+
 			// Start the application
 			view.Start ();
 
 			Console.WriteLine ("Started View");
-
-			Application.Run ();
 		}
 	}
 }
+

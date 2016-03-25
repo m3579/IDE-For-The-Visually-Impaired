@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppLogic", "AppLogic\AppLog
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppLogicUnitTests", "AppLogicUnitTests\AppLogicUnitTests.csproj", "{93EBED0F-3F2D-488D-869F-6AD78CB4F616}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppView", "AppView\AppView.csproj", "{D305C980-41A8-4A48-8FA6-98850005623A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppView", "AppView\AppView.csproj", "{62052A52-7807-49C5-807D-DD635AE5CAFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +13,10 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62052A52-7807-49C5-807D-DD635AE5CAFE}.Debug|x86.ActiveCfg = Debug|x86
+		{62052A52-7807-49C5-807D-DD635AE5CAFE}.Debug|x86.Build.0 = Debug|x86
+		{62052A52-7807-49C5-807D-DD635AE5CAFE}.Release|x86.ActiveCfg = Release|x86
+		{62052A52-7807-49C5-807D-DD635AE5CAFE}.Release|x86.Build.0 = Release|x86
 		{65260CBA-F8B3-46AC-92F6-4853882A6626}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{65260CBA-F8B3-46AC-92F6-4853882A6626}.Debug|x86.Build.0 = Debug|Any CPU
 		{65260CBA-F8B3-46AC-92F6-4853882A6626}.Release|x86.ActiveCfg = Release|Any CPU
@@ -21,9 +25,5 @@ Global
 		{93EBED0F-3F2D-488D-869F-6AD78CB4F616}.Debug|x86.Build.0 = Debug|x86
 		{93EBED0F-3F2D-488D-869F-6AD78CB4F616}.Release|x86.ActiveCfg = Release|x86
 		{93EBED0F-3F2D-488D-869F-6AD78CB4F616}.Release|x86.Build.0 = Release|x86
-		{D305C980-41A8-4A48-8FA6-98850005623A}.Debug|x86.ActiveCfg = Debug|x86
-		{D305C980-41A8-4A48-8FA6-98850005623A}.Debug|x86.Build.0 = Debug|x86
-		{D305C980-41A8-4A48-8FA6-98850005623A}.Release|x86.ActiveCfg = Release|x86
-		{D305C980-41A8-4A48-8FA6-98850005623A}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal

@@ -35,9 +35,13 @@ namespace AppView
 		/// </summary>
 		public void Start()
 		{
+			Application.Init ();
+
 			// The MainWindow class contains the actual user interface code
 			MainWindow window = new MainWindow ();
-			window.ShowAll ();
+			window.Start ();
+
+			Application.Run ();
 		}
 
 		/// <summary>
@@ -60,9 +64,10 @@ namespace AppView
 		/// </summary>
 		public void Test()
 		{
-			Debug.WriteLine ("Testing view");
+			Console.WriteLine ("Testing view");
 			controller.Test ();
 		}
 	}
 }
+
 
