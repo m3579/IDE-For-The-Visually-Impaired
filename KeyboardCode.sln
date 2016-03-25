@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppLogicUnitTests", "AppLog
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppView", "AppView\AppView.csproj", "{62052A52-7807-49C5-807D-DD635AE5CAFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppViewWithStetic", "AppViewWithStetic\AppViewWithStetic.csproj", "{8B09581C-EA9A-49F9-B95A-8F2D2C056BA5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -21,6 +23,10 @@ Global
 		{65260CBA-F8B3-46AC-92F6-4853882A6626}.Debug|x86.Build.0 = Debug|Any CPU
 		{65260CBA-F8B3-46AC-92F6-4853882A6626}.Release|x86.ActiveCfg = Release|Any CPU
 		{65260CBA-F8B3-46AC-92F6-4853882A6626}.Release|x86.Build.0 = Release|Any CPU
+		{8B09581C-EA9A-49F9-B95A-8F2D2C056BA5}.Debug|x86.ActiveCfg = Debug|x86
+		{8B09581C-EA9A-49F9-B95A-8F2D2C056BA5}.Debug|x86.Build.0 = Debug|x86
+		{8B09581C-EA9A-49F9-B95A-8F2D2C056BA5}.Release|x86.ActiveCfg = Release|x86
+		{8B09581C-EA9A-49F9-B95A-8F2D2C056BA5}.Release|x86.Build.0 = Release|x86
 		{93EBED0F-3F2D-488D-869F-6AD78CB4F616}.Debug|x86.ActiveCfg = Debug|x86
 		{93EBED0F-3F2D-488D-869F-6AD78CB4F616}.Debug|x86.Build.0 = Debug|x86
 		{93EBED0F-3F2D-488D-869F-6AD78CB4F616}.Release|x86.ActiveCfg = Release|x86

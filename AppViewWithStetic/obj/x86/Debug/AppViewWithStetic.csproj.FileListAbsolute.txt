@@ -1,0 +1,7 @@
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\bin\Debug\AppViewWithStetic.exe
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\bin\Debug\AppViewWithStetic.pdb
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\bin\Debug\AppLogic.dll
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\bin\Debug\AppLogic.pdb
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\obj\x86\Debug\AppViewWithStetic.csprojResolveAssemblyReference.cache
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\obj\x86\Debug\AppViewWithStetic.exe
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\obj\x86\Debug\AppViewWithStetic.pdb
