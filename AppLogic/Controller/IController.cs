@@ -74,6 +74,20 @@ namespace AppLogic
 		/// </summary>
 		/// <param name="cutText">The text that was cut from the code editor</param>
 		void RegisterTextCutEvent(string cutText);
+
+		/// <summary>
+		/// A method called when the cursor in the code editor is moved that will send a message
+		/// to the Model to react
+		/// </summary>
+		/// <param name="cursorPosition">The position that the cursor is at now</param>
+		void RegisterMoveCursorEvent(int cursorPosition);
+
+		/// <summary>
+		/// A method called when the cursor in the code editor is moved that will send a message
+		/// to the Model to react
+		/// </summary>
+		/// <param name="selectedText">The text that is selected in the code editor</param>
+		void RegisterTextSelectedEvent(string selectedText);
 	}
 }
 

@@ -34,15 +34,17 @@ public partial class MainWindow: Gtk.Window
 	{
 		Console.WriteLine ("InitGUI called");
 
-		Maximize ();
+		CodeEditor.CopyClipboard += OnCodeEditorCopyClipboard;
+		CodeEditor.PasteClipboard += OnCodeEditorPasteClipboard;
+		CodeEditor.CutClipboard += OnCodeEditorCutClipboard;
+		CodeEditor.MoveCursor += OnCodeEditorMoveCursor;
+		CodeEditor.MoveFocus += OnCodeEditorMoveFocus;
 
-		CodeEditor.Buffer.InsertText += (object o, InsertTextArgs args) => {
-			Console.WriteLine("InsertText event invoked: " + args.Text);
-		};
-
-		CodeEditor.Buffer.DeleteRange += (object o, DeleteRangeArgs args) => {
-			Console.WriteLine("DeleteRange event invoked: " + args.Start + " to " + args.End);
-		};
+		// Set these events for the TextBuffer contained in the code editor because
+		// the corresponding events for the code editor (which are TextView.InsertAtCursor
+		// and TextView.DeleteFromCursor) do not work for some reason (at least not on Windows 10)
+		CodeEditor.Buffer.InsertText += OnCodeEditorBufferInsertText;
+		CodeEditor.Buffer.DeleteRange += OnCodeEditorBufferDeleteRange;
 	}
 
 	/// <summary>
@@ -76,16 +78,8 @@ public partial class MainWindow: Gtk.Window
 	 * THESE METHODS ARE THE PART OF THE VIEW THAT WILL SEND MESSAGES TO THE CONTROLLER.
 	 */
 
-	/// <summary>
-	/// The event raised when text is pasted into the code editor
-	/// </summary>
-	/// <param name="sender">The object invoking this event</param>
-	/// <param name="args">Any arguments that the sender, the object invoking this event, wants to supply</param>
-	protected void OnCodeEditorPasteClipboard (object sender, EventArgs e)
-	{
-		Console.WriteLine ("PasteClipboard event invoked");
-		controller.RegisterTextPastedEvent ("<some pasted text>");
-	}
+
+	// INSERT TEXT
 
 	/// <summary>
 	/// The event raised whenever text is inserted into the code editor at the cursor, i.e. not by copy or
@@ -93,22 +87,27 @@ public partial class MainWindow: Gtk.Window
 	/// </summary>
 	/// <param name="sender">The object invoking this event</param>
 	/// <param name="args">Any arguments that the sender, the object invoking this event, wants to supply</param>
-	protected void OnCodeEditorInsertAtCursor (object sender, InsertAtCursorArgs args)
+	protected void OnCodeEditorBufferInsertText (object sender, InsertTextArgs args)
 	{
-		Console.WriteLine ("InsertAtCursor event invoked");
-		controller.RegisterTextTypedEvent (args.Str);
+		Console.WriteLine("InsertText event invoked: " + args.Text);
 	}
 
+
+	// DELETE TEXT
+
 	/// <summary>
-	/// The event raised when text is cut from the code editor
+	/// The event raised whenever text is deleted from the code editor by hitting Backspace on Windows,
+	/// Delete on Mac OS X, and // TODO: find what key the delete range event corresponds to on Linux.
 	/// </summary>
 	/// <param name="sender">The object invoking this event</param>
 	/// <param name="args">Any arguments that the sender, the object invoking this event, wants to supply</param>
-	protected void OnCodeEditorCutClipboard (object sender, EventArgs e)
+	protected void OnCodeEditorBufferDeleteRange (object sender, DeleteRangeArgs args)
 	{
-		Console.WriteLine ("CutClipboard event invoked");
-		controller.RegisterTextCutEvent ("<some cut text>");
+		Console.WriteLine("DeleteRange event invoked: " + args.Start + " to " + args.End);
 	}
+
+
+	// COPY TEXT
 
 	/// <summary>
 	/// The event raised when text is copied from the code editor
@@ -121,17 +120,36 @@ public partial class MainWindow: Gtk.Window
 		controller.RegisterTextCopiedEvent ("<some copied text>");
 	}
 
+
+	// PASTE TEXT
+
 	/// <summary>
-	/// The event raised whenever text is deleted from the code editor by "hitting Backspace or Delete"
-	/// (http://docs.go-mono.com/?link=E%3aGtk.TextView.DeleteFromCursor)
+	/// The event raised when text is pasted into the code editor
 	/// </summary>
 	/// <param name="sender">The object invoking this event</param>
 	/// <param name="args">Any arguments that the sender, the object invoking this event, wants to supply</param>
-	protected void OnCodeEditorDeleteFromCursor (object sender, DeleteFromCursorArgs args)
+	protected void OnCodeEditorPasteClipboard (object sender, EventArgs e)
 	{
-		Console.WriteLine ("DeleteFromCursor event invoked");
-		controller.RegisterTextDeletedEvent ("<some deleted text>");
+		Console.WriteLine ("PasteClipboard event invoked");
+		controller.RegisterTextPastedEvent ("<some pasted text>");
 	}
+
+
+	// CUT TEXT
+
+	/// <summary>
+	/// The event raised when text is cut from the code editor
+	/// </summary>
+	/// <param name="sender">The object invoking this event</param>
+	/// <param name="args">Any arguments that the sender, the object invoking this event, wants to supply</param>
+	protected void OnCodeEditorCutClipboard (object sender, EventArgs e)
+	{
+		Console.WriteLine ("CutClipboard event invoked");
+		controller.RegisterTextCutEvent ("<some cut text>");
+	}
+
+
+	// CURSOR MOVED
 
 	/// <summary>
 	/// The event raised whenever the cursor is moved in the code editor
@@ -140,9 +158,17 @@ public partial class MainWindow: Gtk.Window
 	/// <param name="args">Any arguments that the sender, the object invoking this event, wants to supply</param>
 	protected void OnCodeEditorMoveCursor (object sender, MoveCursorArgs args)
 	{
-		Console.WriteLine ("MoveCursor event invoked");
-		// controller.RegisterTextDeletedEvent(cursorPosition);
+		if (!CodeEditor.Buffer.HasSelection) {
+			Console.WriteLine ("MoveCursor event invoked");
+			// controller.RegisterTextDeletedEvent(cursorPosition);
+		}
+		else {
+			Console.WriteLine ("The user is selecting text");
+		}
 	}
+
+
+	// FOCUS MOVED
 
 	// TODO: change this method to the non-obsolete version
 	/// <summary>
@@ -155,4 +181,5 @@ public partial class MainWindow: Gtk.Window
 		Console.WriteLine ("MoveFocus event invoked");
 		// controller.RegisterMoveFocusEvent(newlyFocusedWidget);
 	}
+
 }
