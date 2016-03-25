@@ -28,6 +28,52 @@ namespace AppLogic
 		/// </summary>
 		/// <param name="model">The model to invoke actions upon</param>
 		void SetModel(IModel model);
+
+		/*
+		 * The following methods will be invoked by the View when an event on the user interface
+		 * occurs. They will invoke an action on the Model in response to the event.
+ 		 */
+
+		/// <summary>
+		/// The method called when the application is started that will send a message to
+		/// the Model to react
+		/// </summary>
+		void RegisterApplicationStartedEvent();
+
+		/// <summary>
+		/// A method called when text is typed in the code editor that will send a message
+		/// to the Model to react
+		/// </summary>
+		/// <param name="typedText">The text that was typed into the code editor</param>
+		void RegisterTextTypedEvent(string typedText);
+
+		/// <summary>
+		/// A method called when text is deleted from the code editor that will send a message
+		/// to the Model to react
+		/// </summary>
+		/// <param name="deletedText">The text that was deleted from the code editor</param>
+		void RegisterTextDeletedEvent(string deletedText);
+
+		/// <summary>
+		/// A method called when text is copied from the code editor that will send a message
+		/// to the Model to react
+		/// </summary>
+		/// <param name="copiedText">The text that was copied from the code editor</param>
+		void RegisterTextCopiedEvent(string copiedText);
+
+		/// <summary>
+		/// A method called when text is pasted into the code editor that will send a message
+		/// to the Model to react
+		/// </summary>
+		/// <param name="pastedText">The text that was pasted into the code editor</param>
+		void RegisterTextPastedEvent(string pastedText);
+
+		/// <summary>
+		/// A method called when text is cut from the code editor that will send a message
+		/// to the Model to react
+		/// </summary>
+		/// <param name="cutText">The text that was cut from the code editor</param>
+		void RegisterTextCutEvent(string cutText);
 	}
 }
 

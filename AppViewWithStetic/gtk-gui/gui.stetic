@@ -28,6 +28,12 @@
                 <property name="CanFocus">True</property>
                 <property name="ShowScrollbars">True</property>
                 <property name="Text" translatable="yes" />
+                <signal name="PasteClipboard" handler="OnCodeEditorPasteClipboard" />
+                <signal name="InsertAtCursor" handler="OnCodeEditorInsertAtCursor" />
+                <signal name="CutClipboard" handler="OnCodeEditorCutClipboard" />
+                <signal name="CopyClipboard" handler="OnCodeEditorCopyClipboard" />
+                <signal name="DeleteFromCursor" handler="OnCodeEditorDeleteFromCursor" />
+                <signal name="MoveCursor" handler="OnCodeEditorMoveCursor" />
               </widget>
             </child>
           </widget>

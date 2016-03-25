@@ -42,5 +42,11 @@ public partial class MainWindow
 		this.DefaultHeight = 480;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
+		this.CodeEditor.PasteClipboard += new global::System.EventHandler (this.OnCodeEditorPasteClipboard);
+		this.CodeEditor.InsertAtCursor += new global::Gtk.InsertAtCursorHandler (this.OnCodeEditorInsertAtCursor);
+		this.CodeEditor.CutClipboard += new global::System.EventHandler (this.OnCodeEditorCutClipboard);
+		this.CodeEditor.CopyClipboard += new global::System.EventHandler (this.OnCodeEditorCopyClipboard);
+		this.CodeEditor.DeleteFromCursor += new global::Gtk.DeleteFromCursorHandler (this.OnCodeEditorDeleteFromCursor);
+		this.CodeEditor.MoveCursor += new global::Gtk.MoveCursorHandler (this.OnCodeEditorMoveCursor);
 	}
 }

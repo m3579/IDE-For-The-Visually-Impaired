@@ -38,7 +38,7 @@ namespace AppView
 			Application.Init ();
 
 			// The MainWindow class contains the actual user interface code
-			MainWindow window = new MainWindow ();
+			MainWindow window = new MainWindow (controller);
 			window.Start ();
 
 			Application.Run ();
