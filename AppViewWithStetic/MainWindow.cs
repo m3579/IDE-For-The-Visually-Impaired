@@ -39,6 +39,10 @@ public partial class MainWindow: Gtk.Window
 		CodeEditor.Buffer.InsertText += (object o, InsertTextArgs args) => {
 			Console.WriteLine("InsertText event invoked: " + args.Text);
 		};
+
+		CodeEditor.Buffer.DeleteRange += (object o, DeleteRangeArgs args) => {
+			Console.WriteLine("DeleteRange event invoked: " + args.Start + " to " + args.End);
+		};
 	}
 
 	/// <summary>
