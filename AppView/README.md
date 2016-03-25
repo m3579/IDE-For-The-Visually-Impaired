@@ -1,17 +1,15 @@
 ﻿KeyboardCode
 =========================================
 
-AppLogicUnitTests
+AppView
 ------------------------------
+This project contains the view, the user interface that the user interacts with, of Keyboard Code.
 
-This project contains unit tests for the AppLogic project, the Model of the Model-View-Controller pattern
-implemented in KeyboardCode.
-
-Most tests are done through the command line.
-
-The TestView class is used as a "dummy" view to do tests with instead of having the actual view.
-
-The Start class is the entry point into this project (it contains the Main method).
+EntryPoint.cs is the entry point into the application; it is where code execution is started.
+Most of the code executed in the KeyboardCode source code (not necessarily in the GTK# source
+code, though) can be traced back to having been caused by a method call in the entry point,
+EntryPoint.cs
+// TODO: add descriptions about class structure
 
 
 Model-View-Controller Implementation in the Source Code

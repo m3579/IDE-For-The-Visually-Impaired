@@ -38,7 +38,7 @@ namespace AppLogicUnitTests
 		/// </summary>
 		public void Test()
 		{
-			Console.WriteLine ("Testing");		
+			Console.WriteLine ("Testing view");		
 		}
 	}
 }

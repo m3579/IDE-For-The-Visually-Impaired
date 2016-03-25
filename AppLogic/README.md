@@ -34,6 +34,8 @@ has told it do to.
 ****How is it implemented in the source code?****
 
 In this app, the model and controller are contained in the AppLogic project. There is a folder for
-the model and a folder for the controller. Both the model and the controller are each defined in an
-interface that other code can implement, so that we can switch out a model or controller (or view, for
-that matter) if we need to with minimal code change.
+the model and a folder for the controller. The model, view, and controller are all defined in 
+interface that other code can implement, so that we can switch out a model, view, or controller if we need to with minimal code change.
+
+The AppLogic project contains the model and controller; and as of right now, the AppView project contains the view. However, in the future,
+the view may be split between several projects (one view for Mac OS X, one view for Windows, etc.).

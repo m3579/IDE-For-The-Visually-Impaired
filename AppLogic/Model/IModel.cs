@@ -9,7 +9,7 @@ namespace AppLogic
 	/// The Controller decides what it wants the Model, the application logic, to do; and it invokes
 	/// that action.
 	/// The Model will do that action and change the View, the user interface, accordingly.
-	/// For more information on MVC, see README.md.
+	/// FOR MORE INFORMATION ON MVC, SEE README.MD (ALL CAPS)
 	/// </summary>
 	public interface IModel
 	{
