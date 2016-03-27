@@ -47,6 +47,8 @@ namespace AppLogic
 		/*
 		 * The following methods will be invoked by the View when an event on the user interface
 		 * occurs. They will invoke an action on the Model in response to the event.
+		 * 
+		 * THESE METHODS ARE THE PART OF THE VIEW THAT WILL INVOKE ACTIONS ON THE MODEL.
  		 */
 
 		/// <summary>
@@ -106,6 +108,26 @@ namespace AppLogic
 		public void RegisterTextCutEvent(string cutText)
 		{
 			Debug.WriteLine ("Text cut event: " + cutText);
+		}
+
+		/// <summary>
+		/// A method called when the cursor in the code editor is moved that will send a message
+		/// to the Model to react
+		/// </summary>
+		/// <param name="cursorPosition">The position that the cursor is at now</param>
+		public void RegisterMoveCursorEvent(int cursorPosition)
+		{
+			
+		}
+
+		/// <summary>
+		/// A method called when the cursor in the code editor is moved that will send a message
+		/// to the Model to react
+		/// </summary>
+		/// <param name="selectedText">The text that is selected in the code editor</param>
+		public void RegisterTextSelectedEvent(string selectedText)
+		{
+		
 		}
 	}
 }

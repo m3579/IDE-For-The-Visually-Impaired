@@ -43,6 +43,23 @@ namespace AppLogic
 			Debug.WriteLine ("Testing model");
 			view.Test ();
 		}
+
+
+		/*
+		 * The following methods will be called by the controller to invoke an action on the
+		 * model as part of the Model-View-Controller architecture implemented in KeyboardCode.
+		 * 
+		 * THESE METHODS ARE THE PART OF THE MODEL THAT WILL CHANGE THE VIEW.
+		 */
+
+		/// <summary>
+		/// The method that will respond to when a character is typed into the code editor
+		/// </summary>
+		/// <param name="c">The character that was typed</param>
+		public void CharWasTyped(char c)
+		{
+			
+		}
 	}
 }
 

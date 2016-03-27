@@ -34,6 +34,8 @@ public partial class MainWindow: Gtk.Window
 	{
 		Console.WriteLine ("InitGUI called");
 
+		CodeEditor.KeyPressEvent += OnCodeEditorKeyPress;
+
 		CodeEditor.CopyClipboard += OnCodeEditorCopyClipboard;
 		CodeEditor.PasteClipboard += OnCodeEditorPasteClipboard;
 		CodeEditor.CutClipboard += OnCodeEditorCutClipboard;
@@ -78,6 +80,12 @@ public partial class MainWindow: Gtk.Window
 	 * THESE METHODS ARE THE PART OF THE VIEW THAT WILL SEND MESSAGES TO THE CONTROLLER.
 	 */
 
+
+	// KEY PRESS (NOT CHARACTER TYPED)
+	protected void OnCodeEditorKeyPress(object o, KeyPressEventArgs args) 
+	{
+		Console.WriteLine("KeyPress event invoked: " + args.Event.Key.ToString());
+	}
 
 	// INSERT TEXT
 

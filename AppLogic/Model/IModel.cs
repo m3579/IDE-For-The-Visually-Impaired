@@ -28,6 +28,11 @@ namespace AppLogic
 		/// </summary>
 		/// <param name="view">The view to manipulate</param>
 		void SetView(IView view);
+
+		/// <summary>
+		/// The method that will respond to when a character is typed into the code editor
+		/// </summary>
+		/// <param name="c">The character that was typed</param>
+		void CharWasTyped(char c);
 	}
 }
-

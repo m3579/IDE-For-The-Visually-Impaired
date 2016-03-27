@@ -41,6 +41,13 @@ namespace AppLogic
 		void RegisterApplicationStartedEvent();
 
 		/// <summary>
+		/// A method called when a "special" key (control, shift, escape, etc.) is called; that will
+		/// send a message to the Model to react
+		/// </summary>
+		/// <param name="key">The key that was pressed</param>
+		void RegisterModifierKeyPress(SpecialKey key);
+
+		/// <summary>
 		/// A method called when text is typed in the code editor that will send a message
 		/// to the Model to react
 		/// </summary>
