@@ -35,6 +35,19 @@ namespace AppLogic
 		/// see if the architecture works. As of right now, it just outputs text to the console
 		/// </summary>
 		void Test();
+
+		/*
+		 * The following methods will be invoked by the Model as part of the Model-View-Controller
+		 * architecture.
+		 * 
+		 * THESE METHODS ARE THE PART OF VIEW THAT WILL UPDATE THE USER INTERFACE
+		 * AT THE MODEL'S COMMAND.
+ 		 */
+
+		/// <summary>
+		/// Makes the focus of the window the text box where the user types actions
+		/// </summary>
+		void FocusOnActionTextBox();
 	}
 }
 

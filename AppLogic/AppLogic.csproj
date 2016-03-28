@@ -36,7 +36,8 @@
     <Compile Include="View\IView.cs" />
     <Compile Include="Controller\IController.cs" />
     <Compile Include="Controller\Controller.cs" />
-    <Compile Include="Controller\SpecialKey.cs" />
+    <Compile Include="Utilities\Key.cs" />
+    <Compile Include="Utilities\UserAction.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -46,5 +47,6 @@
     <Folder Include="Model\" />
     <Folder Include="View\" />
     <Folder Include="Controller\" />
+    <Folder Include="Utilities\" />
   </ItemGroup>
 </Project>

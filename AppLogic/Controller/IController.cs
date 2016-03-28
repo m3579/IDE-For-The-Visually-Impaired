@@ -32,6 +32,8 @@ namespace AppLogic
 		/*
 		 * The following methods will be invoked by the View when an event on the user interface
 		 * occurs. They will invoke an action on the Model in response to the event.
+		 * 
+		 * THESE METHODS ARE THE PART OF THE VIEW THAT WILL INVOKE ACTIONS ON THE MODEL.
  		 */
 
 		/// <summary>
@@ -41,60 +43,11 @@ namespace AppLogic
 		void RegisterApplicationStartedEvent();
 
 		/// <summary>
-		/// A method called when a "special" key (control, shift, escape, etc.) is called; that will
-		/// send a message to the Model to react
+		/// The method called by the view when a key is pressed in the code editor
+		/// text box
 		/// </summary>
-		/// <param name="key">The key that was pressed</param>
-		void RegisterModifierKeyPress(SpecialKey key);
-
-		/// <summary>
-		/// A method called when text is typed in the code editor that will send a message
-		/// to the Model to react
-		/// </summary>
-		/// <param name="typedText">The text that was typed into the code editor</param>
-		void RegisterTextTypedEvent(string typedText);
-
-		/// <summary>
-		/// A method called when text is deleted from the code editor that will send a message
-		/// to the Model to react
-		/// </summary>
-		/// <param name="deletedText">The text that was deleted from the code editor</param>
-		void RegisterTextDeletedEvent(string deletedText);
-
-		/// <summary>
-		/// A method called when text is copied from the code editor that will send a message
-		/// to the Model to react
-		/// </summary>
-		/// <param name="copiedText">The text that was copied from the code editor</param>
-		void RegisterTextCopiedEvent(string copiedText);
-
-		/// <summary>
-		/// A method called when text is pasted into the code editor that will send a message
-		/// to the Model to react
-		/// </summary>
-		/// <param name="pastedText">The text that was pasted into the code editor</param>
-		void RegisterTextPastedEvent(string pastedText);
-
-		/// <summary>
-		/// A method called when text is cut from the code editor that will send a message
-		/// to the Model to react
-		/// </summary>
-		/// <param name="cutText">The text that was cut from the code editor</param>
-		void RegisterTextCutEvent(string cutText);
-
-		/// <summary>
-		/// A method called when the cursor in the code editor is moved that will send a message
-		/// to the Model to react
-		/// </summary>
-		/// <param name="cursorPosition">The position that the cursor is at now</param>
-		void RegisterMoveCursorEvent(int cursorPosition);
-
-		/// <summary>
-		/// A method called when the cursor in the code editor is moved that will send a message
-		/// to the Model to react
-		/// </summary>
-		/// <param name="selectedText">The text that is selected in the code editor</param>
-		void RegisterTextSelectedEvent(string selectedText);
+		/// <param name="key">The string representation of the key that was pressed</param>
+		void RegisterCodeEditorKeypress(Key key);
 	}
 }
 

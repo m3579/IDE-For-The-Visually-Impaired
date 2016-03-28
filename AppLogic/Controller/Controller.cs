@@ -61,73 +61,22 @@ namespace AppLogic
 		}
 
 		/// <summary>
-		/// A method called when text is typed in the code editor that will send a message
-		/// to the Model to react
+		/// The method called by the view when a key is pressed in the code editor
+		/// text box
 		/// </summary>
-		/// <param name="typedText">The text that was typed into the code editor</param>
-		public void RegisterTextTypedEvent(string typedText)
+		/// <param name="key">The string representation of the key that was pressed</param>
+		public void RegisterCodeEditorKeypress(Key key)
 		{
-			Debug.WriteLine ("Text typed event: " + typedText);
-		}
+			Debug.WriteLine ("Controller registering key press with key " + key);
 
-		/// <summary>
-		/// A method called when text is deleted from the code editor that will send a message
-		/// to the Model to react
-		/// </summary>
-		/// <param name="deletedText">The text that was deleted from the code editor</param>
-		public void RegisterTextDeletedEvent(string deletedText)
-		{
-			Debug.WriteLine("Text deleted event: " + deletedText);
-		}
-
-		/// <summary>
-		/// A method called when text is copied from the code editor that will send a message
-		/// to the Model to react
-		/// </summary>
-		/// <param name="copiedText">The text that was copied from the code editor</param>
-		public void RegisterTextCopiedEvent(string copiedText)
-		{
-			Debug.WriteLine ("Text copied event: " + copiedText);
-		}
-
-		/// <summary>
-		/// A method called when text is pasted into the code editor that will send a message
-		/// to the Model to react
-		/// </summary>
-		/// <param name="pastedText">The text that was pasted into the code editor</param>
-		public void RegisterTextPastedEvent(string pastedText)
-		{
-			Debug.WriteLine ("Text pasted event: " + pastedText);
-		}
-
-		/// <summary>
-		/// A method called when text is cut from the code editor that will send a message
-		/// to the Model to react
-		/// </summary>
-		/// <param name="cutText">The text that was cut from the code editor</param>
-		public void RegisterTextCutEvent(string cutText)
-		{
-			Debug.WriteLine ("Text cut event: " + cutText);
-		}
-
-		/// <summary>
-		/// A method called when the cursor in the code editor is moved that will send a message
-		/// to the Model to react
-		/// </summary>
-		/// <param name="cursorPosition">The position that the cursor is at now</param>
-		public void RegisterMoveCursorEvent(int cursorPosition)
-		{
-			
-		}
-
-		/// <summary>
-		/// A method called when the cursor in the code editor is moved that will send a message
-		/// to the Model to react
-		/// </summary>
-		/// <param name="selectedText">The text that is selected in the code editor</param>
-		public void RegisterTextSelectedEvent(string selectedText)
-		{
-		
+			switch (key)
+			{
+				case Key.Escape: {
+					Debug.WriteLine ("Key is escape");
+					model.FocusOnActionTextBox ();
+					break;
+				}
+			}
 		}
 	}
 }

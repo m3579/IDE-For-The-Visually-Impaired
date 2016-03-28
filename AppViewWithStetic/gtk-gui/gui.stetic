@@ -15,16 +15,16 @@
     <property name="WindowPosition">CenterOnParent</property>
     <signal name="DeleteEvent" handler="OnDeleteEvent" />
     <child>
-      <widget class="Gtk.HBox" id="MainHBox">
+      <widget class="Gtk.VBox" id="vbox1">
         <property name="MemberName" />
         <property name="Spacing">6</property>
         <child>
-          <widget class="Gtk.ScrolledWindow" id="CodeEditorScrolledWindow">
+          <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow">
             <property name="MemberName" />
             <property name="ShadowType">In</property>
             <child>
-              <widget class="Gtk.TextView" id="CodeEditor">
-                <property name="MemberName">CodeEditor</property>
+              <widget class="Gtk.TextView" id="codeEditor">
+                <property name="MemberName">codeEditor</property>
                 <property name="CanFocus">True</property>
                 <property name="ShowScrollbars">True</property>
                 <property name="Text" translatable="yes" />
@@ -33,6 +33,24 @@
           </widget>
           <packing>
             <property name="Position">0</property>
+            <property name="AutoSize">True</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow1">
+            <property name="MemberName" />
+            <property name="ShadowType">In</property>
+            <child>
+              <widget class="Gtk.TextView" id="actionTextBox">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="ShowScrollbars">True</property>
+                <property name="Text" translatable="yes" />
+              </widget>
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">1</property>
             <property name="AutoSize">True</property>
           </packing>
         </child>

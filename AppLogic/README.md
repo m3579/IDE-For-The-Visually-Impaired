@@ -15,6 +15,9 @@ Code that references this library will only interact with the Controller object,
 a Model object with a class in that project that implements IView and will pass that Model as an argument
 to the Controller.
 
+Any utilities that the other code uses (or miscellaneous classes/interfaces/enumerations) are contained in the
+"Utilities" folder.
+
 
 Model-View-Controller Implementation in the Source Code
 ---------------------------------

@@ -30,6 +30,11 @@ namespace AppView
 		private IController controller;
 
 		/// <summary>
+		/// The object in charge of actually managing the user interface
+		/// </summary>
+		private MainWindow window;
+
+		/// <summary>
 		/// Starts the app; in other words, displays the user interfaces and sends an
 		/// event to the controller to initialize the application
 		/// </summary>
@@ -38,7 +43,7 @@ namespace AppView
 			Application.Init ();
 
 			// The MainWindow class contains the actual user interface code
-			MainWindow window = new MainWindow (controller);
+			window = new MainWindow (controller);
 			window.Start ();
 
 			Application.Run ();
@@ -66,6 +71,22 @@ namespace AppView
 		{
 			Console.WriteLine ("Testing view");
 			controller.Test ();
+		}
+
+		/*
+		 * The following methods will be invoked by the Controller as part of the Model-View-Controller
+		 * architecture.
+		 * 
+		 * THESE METHODS ARE THE PART OF THE MODEL THAT WILL UPDATE THE VIEW.
+ 		 */
+
+		/// <summary>
+		/// Makes the focus of the window the text box where the user types actions
+		/// </summary>
+		public void FocusOnActionTextBox()
+		{
+			Console.WriteLine ("View told to focus on action text area");
+			window.Focus = window.ActionTextBox;
 		}
 	}
 }

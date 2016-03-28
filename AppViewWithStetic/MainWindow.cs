@@ -12,6 +12,32 @@ public partial class MainWindow: Gtk.Window
 	private IController controller;
 
 	/// <summary>
+	/// The text view into which the user will type code. This member simply makes the actual GUI widget
+	/// accessible to the rest of the namespace since it is private by default.
+	/// </summary>
+	/// <value>Gets (doesn't set) the actual code editor object, which is private by default</value>
+	internal TextView CodeEditor
+	{
+		get
+		{
+			return codeEditor;
+		}
+	}
+
+	/// <summary>
+	/// The text view into which the user types actions. This member simply makes the actual GUI widget
+	/// accessible to the rest of the namespace since it is private by default.
+	/// </summary>
+	/// <value>Gets (doesn't set) the actual action text view object, which is private by default</value>
+	internal TextView ActionTextBox
+	{
+		get
+		{
+			return actionTextBox;
+		}
+	}
+
+	/// <summary>
 	/// The class that represents the user interface that the user
 	/// will interact with. The GUI code is contained here.
 	/// </summary>
@@ -34,19 +60,7 @@ public partial class MainWindow: Gtk.Window
 	{
 		Console.WriteLine ("InitGUI called");
 
-		CodeEditor.KeyPressEvent += OnCodeEditorKeyPress;
-
-		CodeEditor.CopyClipboard += OnCodeEditorCopyClipboard;
-		CodeEditor.PasteClipboard += OnCodeEditorPasteClipboard;
-		CodeEditor.CutClipboard += OnCodeEditorCutClipboard;
-		CodeEditor.MoveCursor += OnCodeEditorMoveCursor;
-		CodeEditor.MoveFocus += OnCodeEditorMoveFocus;
-
-		// Set these events for the TextBuffer contained in the code editor because
-		// the corresponding events for the code editor (which are TextView.InsertAtCursor
-		// and TextView.DeleteFromCursor) do not work for some reason (at least not on Windows 10)
-		CodeEditor.Buffer.InsertText += OnCodeEditorBufferInsertText;
-		CodeEditor.Buffer.DeleteRange += OnCodeEditorBufferDeleteRange;
+		codeEditor.KeyPressEvent += CodeEditor_KeyPressEvent;
 	}
 
 	/// <summary>
@@ -80,114 +94,22 @@ public partial class MainWindow: Gtk.Window
 	 * THESE METHODS ARE THE PART OF THE VIEW THAT WILL SEND MESSAGES TO THE CONTROLLER.
 	 */
 
-
-	// KEY PRESS (NOT CHARACTER TYPED)
-	protected void OnCodeEditorKeyPress(object o, KeyPressEventArgs args) 
-	{
-		Console.WriteLine("KeyPress event invoked: " + args.Event.Key.ToString());
-	}
-
-	// INSERT TEXT
-
 	/// <summary>
-	/// The event raised whenever text is inserted into the code editor at the cursor, i.e. not by copy or
-	/// pasting, but by actually typing characters
+	/// An event invoked when a key such as Control, Shift, Escape, etc. is pressed
 	/// </summary>
 	/// <param name="sender">The object invoking this event</param>
-	/// <param name="args">Any arguments that the sender, the object invoking this event, wants to supply</param>
-	protected void OnCodeEditorBufferInsertText (object sender, InsertTextArgs args)
+	/// <param name="args">Any arguments that the sender wants to provide this event</param>
+	void CodeEditor_KeyPressEvent (object sender, KeyPressEventArgs args)
 	{
-		Console.WriteLine("InsertText event invoked: " + args.Text);
-	}
+		Console.WriteLine ("Key press event");
 
-
-	// DELETE TEXT
-
-	/// <summary>
-	/// The event raised whenever text is deleted from the code editor by hitting Backspace on Windows,
-	/// Delete on Mac OS X, and // TODO: find what key the delete range event corresponds to on Linux.
-	/// </summary>
-	/// <param name="sender">The object invoking this event</param>
-	/// <param name="args">Any arguments that the sender, the object invoking this event, wants to supply</param>
-	protected void OnCodeEditorBufferDeleteRange (object sender, DeleteRangeArgs args)
-	{
-		Console.WriteLine("DeleteRange event invoked: " + args.Start + " to " + args.End);
-	}
-
-
-	// COPY TEXT
-
-	/// <summary>
-	/// The event raised when text is copied from the code editor
-	/// </summary>
-	/// <param name="sender">The object invoking this event</param>
-	/// <param name="args">Any arguments that the sender, the object invoking this event, wants to supply</param>
-	protected void OnCodeEditorCopyClipboard (object sender, EventArgs e)
-	{
-		Console.WriteLine ("CopyClipboard event invoked");
-		controller.RegisterTextCopiedEvent ("<some copied text>");
-	}
-
-
-	// PASTE TEXT
-
-	/// <summary>
-	/// The event raised when text is pasted into the code editor
-	/// </summary>
-	/// <param name="sender">The object invoking this event</param>
-	/// <param name="args">Any arguments that the sender, the object invoking this event, wants to supply</param>
-	protected void OnCodeEditorPasteClipboard (object sender, EventArgs e)
-	{
-		Console.WriteLine ("PasteClipboard event invoked");
-		controller.RegisterTextPastedEvent ("<some pasted text>");
-	}
-
-
-	// CUT TEXT
-
-	/// <summary>
-	/// The event raised when text is cut from the code editor
-	/// </summary>
-	/// <param name="sender">The object invoking this event</param>
-	/// <param name="args">Any arguments that the sender, the object invoking this event, wants to supply</param>
-	protected void OnCodeEditorCutClipboard (object sender, EventArgs e)
-	{
-		Console.WriteLine ("CutClipboard event invoked");
-		controller.RegisterTextCutEvent ("<some cut text>");
-	}
-
-
-	// CURSOR MOVED
-
-	/// <summary>
-	/// The event raised whenever the cursor is moved in the code editor
-	/// </summary>
-	/// <param name="sender">The object invoking this event</param>
-	/// <param name="args">Any arguments that the sender, the object invoking this event, wants to supply</param>
-	protected void OnCodeEditorMoveCursor (object sender, MoveCursorArgs args)
-	{
-		if (!CodeEditor.Buffer.HasSelection) {
-			Console.WriteLine ("MoveCursor event invoked");
-			// controller.RegisterTextDeletedEvent(cursorPosition);
-		}
-		else {
-			Console.WriteLine ("The user is selecting text");
+		// TODO: add events for the rest of the special keys as well
+		// That is not required right now because the only special key we
+		// use is the escape key, but all of the special keys really should
+		// have events
+		if (args.Event.Key == Gdk.Key.Escape) {
+			Console.WriteLine ("Escape key pressed");
+			controller.RegisterCodeEditorKeypress(AppLogic.Key.Escape);
 		}
 	}
-
-
-	// FOCUS MOVED
-
-	// TODO: change this method to the non-obsolete version
-	/// <summary>
-	/// The event raised when the focus leaves from the code editor to another widget on the user interface
-	/// </summary>
-	/// <param name="sender">The object invoking this event</param>
-	/// <param name="args">Any arguments that the sender, the object invoking this event, wants to supply</param>
-	protected void OnCodeEditorMoveFocus (object sender, MoveFocusArgs args)
-	{
-		Console.WriteLine ("MoveFocus event invoked");
-		// controller.RegisterMoveFocusEvent(newlyFocusedWidget);
-	}
-
 }

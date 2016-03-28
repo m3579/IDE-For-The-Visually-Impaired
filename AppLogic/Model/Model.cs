@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 
+using AppLogic.Utilities;
+
 namespace AppLogic
 {	
 	/// <summary>
@@ -45,20 +47,34 @@ namespace AppLogic
 		}
 
 
+
 		/*
-		 * The following methods will be called by the controller to invoke an action on the
-		 * model as part of the Model-View-Controller architecture implemented in KeyboardCode.
+		 * The following methods will be invoked by the Controller as part of the Model-View-Controller
+		 * architecture.
 		 * 
-		 * THESE METHODS ARE THE PART OF THE MODEL THAT WILL CHANGE THE VIEW.
-		 */
+		 * THESE METHODS ARE THE PART OF THE MODEL THAT WILL UPDATE THE VIEW.
+ 		 */
 
 		/// <summary>
-		/// The method that will respond to when a character is typed into the code editor
+		/// A method invoked by the controller when the user wants to execute a certain action, such as by
+		/// a keyboard shortcut or a typed command
 		/// </summary>
-		/// <param name="c">The character that was typed</param>
-		public void CharWasTyped(char c)
+		/// <param name="action">The action the user wants to execute</param>
+		public void ExecuteAction(UserAction action)
 		{
 			
+		}
+
+		/// <summary>
+		/// A method invoked by the controller when it wants the focus of the window to be the text box
+		/// where the user types actions; this is invoked when the user presses the action-key
+		/// (for lack of a better name), which is currently escape, so that they can type a command and hit enter
+		/// to run it.
+		/// </summary>
+		public void FocusOnActionTextBox()
+		{
+			Debug.WriteLine ("Model told to focus on action text box");
+			view.FocusOnActionTextBox ();
 		}
 	}
 }

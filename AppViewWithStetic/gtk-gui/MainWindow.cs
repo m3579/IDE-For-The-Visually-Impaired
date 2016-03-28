@@ -3,11 +3,15 @@
 
 public partial class MainWindow
 {
-	private global::Gtk.HBox MainHBox;
+	private global::Gtk.VBox vbox1;
 	
-	private global::Gtk.ScrolledWindow CodeEditorScrolledWindow;
+	private global::Gtk.ScrolledWindow GtkScrolledWindow;
 	
-	private global::Gtk.TextView CodeEditor;
+	private global::Gtk.TextView codeEditor;
+	
+	private global::Gtk.ScrolledWindow GtkScrolledWindow1;
+	
+	private global::Gtk.TextView actionTextBox;
 
 	protected virtual void Build ()
 	{
@@ -19,22 +23,34 @@ public partial class MainWindow
 		this.Title = global::Mono.Unix.Catalog.GetString ("Keyboard Code");
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 		// Container child MainWindow.Gtk.Container+ContainerChild
-		this.MainHBox = new global::Gtk.HBox ();
-		this.MainHBox.Name = "MainHBox";
-		this.MainHBox.Spacing = 6;
-		// Container child MainHBox.Gtk.Box+BoxChild
-		this.CodeEditorScrolledWindow = new global::Gtk.ScrolledWindow ();
-		this.CodeEditorScrolledWindow.Name = "CodeEditorScrolledWindow";
-		this.CodeEditorScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
-		// Container child CodeEditorScrolledWindow.Gtk.Container+ContainerChild
-		this.CodeEditor = new global::Gtk.TextView ();
-		this.CodeEditor.CanFocus = true;
-		this.CodeEditor.Name = "CodeEditor";
-		this.CodeEditorScrolledWindow.Add (this.CodeEditor);
-		this.MainHBox.Add (this.CodeEditorScrolledWindow);
-		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.MainHBox [this.CodeEditorScrolledWindow]));
+		this.vbox1 = new global::Gtk.VBox ();
+		this.vbox1.Name = "vbox1";
+		this.vbox1.Spacing = 6;
+		// Container child vbox1.Gtk.Box+BoxChild
+		this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
+		this.GtkScrolledWindow.Name = "GtkScrolledWindow";
+		this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
+		// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
+		this.codeEditor = new global::Gtk.TextView ();
+		this.codeEditor.CanFocus = true;
+		this.codeEditor.Name = "codeEditor";
+		this.GtkScrolledWindow.Add (this.codeEditor);
+		this.vbox1.Add (this.GtkScrolledWindow);
+		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.GtkScrolledWindow]));
 		w2.Position = 0;
-		this.Add (this.MainHBox);
+		// Container child vbox1.Gtk.Box+BoxChild
+		this.GtkScrolledWindow1 = new global::Gtk.ScrolledWindow ();
+		this.GtkScrolledWindow1.Name = "GtkScrolledWindow1";
+		this.GtkScrolledWindow1.ShadowType = ((global::Gtk.ShadowType)(1));
+		// Container child GtkScrolledWindow1.Gtk.Container+ContainerChild
+		this.actionTextBox = new global::Gtk.TextView ();
+		this.actionTextBox.CanFocus = true;
+		this.actionTextBox.Name = "actionTextBox";
+		this.GtkScrolledWindow1.Add (this.actionTextBox);
+		this.vbox1.Add (this.GtkScrolledWindow1);
+		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.GtkScrolledWindow1]));
+		w4.Position = 1;
+		this.Add (this.vbox1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
