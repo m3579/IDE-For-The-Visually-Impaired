@@ -1,5 +1,6 @@
 ﻿using System;
 using Gtk;
+using Atk;
 
 using AppLogic;
 
@@ -10,12 +11,17 @@ public partial class MainWindow: Gtk.Window
 	/// messages to in response to events at the user interface.
 	/// </summary>
 	private IController controller;
+    
+    /// <summary>
+    /// The text view into which the user will type code. This member simply makes the actual GUI widget
+    /// accessible to the rest of the namespace since it is private by default.
+    /// </summary>
+    private TextView codeEditor;
 
 	/// <summary>
 	/// The text view into which the user will type code. This member simply makes the actual GUI widget
 	/// accessible to the rest of the namespace since it is private by default.
 	/// </summary>
-	/// <value>Gets (doesn't set) the actual code editor object, which is private by default</value>
 	internal TextView CodeEditor
 	{
 		get
@@ -24,18 +30,43 @@ public partial class MainWindow: Gtk.Window
 		}
 	}
 
+    /// <summary>
+	/// The text view into which the user types actions. This member simply makes the actual GUI widget
+	/// accessible to the rest of the namespace since it is private by default.
+	/// </summary>
+	private TextView actionTextView;
+
 	/// <summary>
 	/// The text view into which the user types actions. This member simply makes the actual GUI widget
 	/// accessible to the rest of the namespace since it is private by default.
 	/// </summary>
 	/// <value>Gets (doesn't set) the actual action text view object, which is private by default</value>
-	internal TextView ActionTextBox
+	internal TextView ActionTextView
 	{
 		get
 		{
-			return actionTextBox;
+			return actionTextView;
 		}
 	}
+
+    /// <summary>
+    /// The text view that represents the command prompt/terminal that the user
+    /// will interact with on a particular operating system
+    /// </summary>
+    private TextView commandPrompt;
+
+
+    /// <summary>
+    /// The text view that represents the command prompt/terminal that the user
+    /// will interact with on a particular operating system
+    /// </summary>
+    internal TextView CommandPrompt
+    {
+        get
+        {
+            return commandPrompt;
+        }
+    }
 
 	/// <summary>
 	/// The class that represents the user interface that the user
@@ -45,30 +76,75 @@ public partial class MainWindow: Gtk.Window
 	/// is part of the view, should send messages to in response to events on the user interface</param> 
 	public MainWindow (IController controller) : base (Gtk.WindowType.Toplevel)
 	{
-		Build ();
-
 		InitGUI ();
 	
 		this.controller = controller;
 	}
 
 	/// <summary>
-	/// Initializes the user interface with anything that was not set using the drag-and-drop Stetic
-	/// designer
-	/// </summary>
+	/// Creates the layout and components of the Keyboard Code user interface
+	/// using GTK#. The layout is entirely coded; none of it is made using
+    /// a GUI designer.
+    /// </summary>
 	private void InitGUI()
 	{
 		Console.WriteLine ("InitGUI called");
 
+        SetSizeRequest(600, 500);
+
+        // The layout that everything else goes into
+        HBox mainHBox = new HBox();
+        
+            // The code editors - left side of the main layout
+            VBox codeEditorsVBox = new VBox();
+        
+                // The code editor
+                ScrolledWindow codeEditorScroller = new ScrolledWindow();
+                codeEditor = new TextView();
+                codeEditorScroller.Add(codeEditor);
+        
+                codeEditorsVBox.Add(codeEditorScroller);
+        
+                // The action editor
+                ScrolledWindow actionTextViewScroller = new ScrolledWindow();
+                actionTextView = new TextView();
+                actionTextViewScroller.Add(actionTextView);
+            
+                codeEditorsVBox.Add(actionTextViewScroller);
+           
+            mainHBox.Add(codeEditorsVBox);
+
+            // The file system explorer
+            VBox fileSystemVBox = new VBox();
+
+                // Filenames
+                for (int i = 0; i < 10; i++)
+                {
+                    Label l = new Label("Placeholder");
+                    fileSystemVBox.Add(l);
+                }
+        
+            mainHBox.Add(fileSystemVBox);
+
+            // The command prompt
+            VBox commandPromptVBox = new VBox();
+
+                commandPrompt = new TextView();
+                commandPromptVBox.Add(commandPrompt);
+
+            mainHBox.Add(commandPromptVBox);
+        
+        Add(mainHBox);
+        
 		codeEditor.KeyPressEvent += CodeEditor_KeyPressEvent;
 	}
-
-	/// <summary>
-	/// Start the user interface code; in other words, start showing the KeyboardCode screen
-	/// to the user; in other words (again), start the app. Note that this is not the entry
-	/// point into the application; that is the Main method in <see cref="AppView.EntryPoint"/>. 
-	/// </summary>
-	public void Start()
+    
+    /// <summary>
+    /// Start the user interface code; in other words, start showing the KeyboardCode screen
+    /// to the user; in other words (again), start the app. Note that this is not the entry
+    /// point into the application; that is the Main method in <see cref="AppView.EntryPoint"/>. 
+    /// </summary>
+    public void Start()
 	{
 		controller.RegisterApplicationStartedEvent ();
 

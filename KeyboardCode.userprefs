@@ -2,8 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="AppViewWithStetic\MainWindow.cs">
     <Files>
-      <File FileName="AppViewWithStetic\MainWindow.cs" Line="174" Column="12" />
-      <File FileName="AppLogic\Controller\IController.cs" Line="75" Column="29" />
+      <File FileName="AppViewWithStetic\MainWindow.cs" Line="66" Column="41" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

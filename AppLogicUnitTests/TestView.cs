@@ -40,6 +40,14 @@ namespace AppLogicUnitTests
 		{
 			Console.WriteLine ("Testing view");		
 		}
-	}
+
+        /// <summary>
+        /// Makes the focus of the window the text box where the user types actions
+        /// </summary>
+        public void FocusOnActionTextBox()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
 

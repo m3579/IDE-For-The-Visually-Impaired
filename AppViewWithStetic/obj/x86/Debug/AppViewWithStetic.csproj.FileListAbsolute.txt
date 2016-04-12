@@ -5,3 +5,15 @@ C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppVie
 C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\obj\x86\Debug\AppViewWithStetic.csprojResolveAssemblyReference.cache
 C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\obj\x86\Debug\AppViewWithStetic.exe
 C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\obj\x86\Debug\AppViewWithStetic.pdb
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\bin\Debug\atk-sharp.dll
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\bin\Debug\gdk-sharp.dll
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\bin\Debug\glade-sharp.dll
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\bin\Debug\glib-sharp.dll
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\bin\Debug\gtk-sharp.dll
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\bin\Debug\Mono.Posix.dll
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\bin\Debug\pango-sharp.dll
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\bin\Debug\gdk-sharp.pdb
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\bin\Debug\glib-sharp.pdb
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\bin\Debug\glade-sharp.pdb
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\bin\Debug\pango-sharp.pdb
+C:\Users\Mihir Kasmalkar\Documents\_Programs\XamarinProjects\KeyboardCode\AppViewWithStetic\bin\Debug\atk-sharp.pdb

@@ -14,6 +14,22 @@ namespace AppView
 		/// </summary>
 		private Window window;
 
+        /// <summary>
+        /// The window object on which the user interface controls will be placed
+        /// </summary>
+        internal Window Window
+        {
+            get
+            {
+                return window;
+            }
+
+            set
+            {
+                window = value;
+            }
+        }
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AppView.MainWindow"/> class.
 		/// </summary>

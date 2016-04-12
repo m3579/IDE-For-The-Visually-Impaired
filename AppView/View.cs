@@ -29,6 +29,11 @@ namespace AppView
 		/// </summary>
 		private IController controller;
 
+        /// <summary>
+        /// The object that represents the user interface
+        /// </summary>
+        private MainWindow window;
+
 		/// <summary>
 		/// Starts the app; in other words, displays the user interfaces and sends an
 		/// event to the controller to initialize the application
@@ -38,7 +43,7 @@ namespace AppView
 			Application.Init ();
 
 			// The MainWindow class contains the actual user interface code
-			MainWindow window = new MainWindow ();
+			window = new MainWindow ();
 			window.Start ();
 
 			Application.Run ();
@@ -67,6 +72,14 @@ namespace AppView
 			Console.WriteLine ("Testing view");
 			controller.Test ();
 		}
+
+        /// <summary>
+        /// Makes the focus of the window the text box where the user types actions
+        /// </summary>
+        public void FocusOnActionTextBox()
+        {
+            throw new NotImplementedException();
+        }
 	}
 }
 
